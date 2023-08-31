@@ -25,6 +25,8 @@ services:
         condition: service_healthy
     ports:
       - "0.0.0.0:${CKAN_PORT_HOST}:${CKAN_PORT}"
+    stdin_open: true
+    tty: true
     volumes:
       - ckan_storage:/var/lib/ckan
       - ./src:/srv/app/src_extensions
@@ -34,7 +36,19 @@ services:
     
   datapusher:
     container_name: ${DATAPUSHER_CONTAINER_NAME}
-    image: ckan/ckan-base-datapusher:${DATAPUSHER_VERSION}
+    # Official image:
+    #image: ckan/ckan-base-datapusher:${DATAPUSHER_VERSION}
+
+    # Custom build image:
+    build:
+      context: datapusher/
+      #dockerfile: Dockerfile.official-git
+      dockerfile: Dockerfile.fri-mdp-git
+      args:
+        - DATAPUSHER_VERSION=${DATAPUSHER_VERSION}
+        - TZ=${TZ}
+    env_file:
+      - .env
     restart: unless-stopped
     healthcheck:
       test: ["CMD", "wget", "-qO", "/dev/null", "http://localhost:8800"]
