@@ -1,0 +1,265 @@
+# XML Schema
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+# XML Schema Definition (XSD)
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+# Resource Description Framework (RDF)
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+# RDF Schema (RDFS)
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+# Web Ontology Language (OWL)
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+# Data Catalog Vocabulary (DCAT) Version 2
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+# Dublin Core Metadata Terms
+@prefix dct: <http://purl.org/dc/terms/> .
+# vCard Ontology for describing people and organizations
+@prefix vcard: <http://www.w3.org/2006/vcard/ns#> .
+# The PROV-O ontology for provenance information
+@prefix prov: <http://www.w3.org/ns/prov#> .
+# CSVW ontology for Metadata description for tabular data
+@prefix csvw: <http://www.w3.org/ns/csvw#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix   skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix    cnb: <http://onto.mju.gov.si/centralni-besednjak-core#> .
+@prefix     pz: <http://onto.mju.gov.si/podatkovni-zemljevid#> .
+
+
+
+
+<http://onto.mju.gov.si/pz/dataset/erar-evidenca-davcnih-dolznikov-in-nepredlagateljev-davcnih-obracunov>
+  
+  # Version indicator for the resource.
+  owl:versionInfo "0.1.0" ;
+
+  # A collection of data, published or curated by a single source, and 
+  # available for access or download in one or more formats. One or more 
+  # representations might be available, with differing schematic layouts and 
+  # formats or serializations.
+  a dcat:Dataset ;
+  
+  # An unambiguous reference to the resource within a given context.
+  dct:identifier "erar-evidenca-davcnih-dolznikov-in-nepredlagateljev-davcnih-obracunov" ;
+  
+  # A name given to the resource.
+  dct:title "ERAR - Evidenca davčnih dolžnikov in nepredlagateljev davčnih obračunov"@sl ;
+  
+  # Description may include but is not limited to: an abstract, a table of 
+  # contents, a graphical representation, or a free-text account of the 
+  # resource.
+  dct:description "Seznam davčnih dolžnikov in nepredlagateljev davčnih obračunov, ki ga uporablja aplikacija Erar."@sl ;
+  
+  # Date of formal issuance of the resource.
+  # TODO: wouldn't this be rather better to have on a distribution level ??
+  # Probably this is "Dodano na OPSI"
+  # TODO: narediti mapping vseh atributov iz spletne strani OPSI-ja
+  dct:issued "2017-04-19"^^xsd:date ;
+
+  # A language of the resource.
+  dct:language <http://publications.europa.eu/resource/authority/language/SLV> ;
+  
+  # Relevant contact information for the catalogued resource. 
+  # Use of vCard is recommended.
+  dcat:contactPoint [
+    a vcard:Kind ;
+    vcard:fn "Komisija za preprečevanje korupcije"@sl ;
+    vcard:hasEmail <mailto:anti.korupcija@kpk-rs.si>
+  ] ;
+
+  dct:publisher <http://onto.mju.gov.si/pz/org/KPK> ;
+
+  dct:creator <http://onto.mju.gov.si/pz/org/KPK> ;
+
+  # An available distribution of the dataset.
+  dcat:distribution <http://onto.mju.gov.si/pz/distribution/erar-davcni-dolzniki-prejemniki-javnih-sredstev-2022-12-25.zip> ;
+  dcat:distribution <http://onto.mju.gov.si/pz/distribution/erar-davcni-dolzniki-prejemniki-javnih-sredstev-2022-11-25.zip> ;
+  dcat:distribution <http://onto.mju.gov.si/pz/distribution/erar-davcni-dolzniki-prejemniki-javnih-sredstev-2022-10-25.zip> ;
+  dcat:distribution <http://onto.mju.gov.si/pz/distribution/erar-davcni-dolzniki-prejemniki-javnih-sredstev-2022-09-25.zip> ;
+  dcat:distribution <http://onto.mju.gov.si/pz/distribution/erar-davcni-dolzniki-prejemniki-javnih-sredstev-2022-08-25.zip> ;
+  dcat:distribution <http://onto.mju.gov.si/pz/distribution/erar-davcni-dolzniki-prejemniki-javnih-sredstev-2022-07-25.zip> ;
+  dcat:distribution <http://onto.mju.gov.si/pz/distribution/erar-davcni-dolzniki-prejemniki-javnih-sredstev-2022-06-25.zip> ;
+  dcat:distribution <http://onto.mju.gov.si/pz/distribution/erar-davcni-dolzniki-prejemniki-javnih-sredstev-2022-05-25.zip> ;
+  dcat:distribution <http://onto.mju.gov.si/pz/distribution/erar-davcni-dolzniki-prejemniki-javnih-sredstev-2022-04-25.zip> ;
+  dcat:distribution <http://onto.mju.gov.si/pz/distribution/erar-davcni-dolzniki-prejemniki-javnih-sredstev-2022-03-25.zip> ;
+  dcat:distribution <http://onto.mju.gov.si/pz/distribution/erar-davcni-dolzniki-prejemniki-javnih-sredstev-2022-02-25.zip> ;
+  dcat:distribution <http://onto.mju.gov.si/pz/distribution/erar-davcni-dolzniki-prejemniki-javnih-sredstev-2022-01-25.zip> ;
+  dcat:distribution <http://onto.mju.gov.si/pz/distribution/erar-davcni-dolzniki-prejemniki-javnih-sredstev-2021-12-25.zip> ;
+  dcat:distribution <http://onto.mju.gov.si/pz/distribution/erar-davcni-dolzniki-prejemniki-javnih-sredstev-2021-11-25.zip> ;
+  dcat:distribution <http://onto.mju.gov.si/pz/distribution/erar-davcni-dolzniki-prejemniki-javnih-sredstev-2021-10-25.zip> ;
+  dcat:distribution <http://onto.mju.gov.si/pz/distribution/erar-davcni-dolzniki-prejemniki-javnih-sredstev-2021-09-25.zip> ;
+  dcat:distribution <http://onto.mju.gov.si/pz/distribution/erar-davcni-dolzniki-prejemniki-javnih-sredstev-2021-08-25.zip> ;
+  dcat:distribution <http://onto.mju.gov.si/pz/distribution/erar-davcni-dolzniki-prejemniki-javnih-sredstev-2021-07-25.zip> ;
+  dcat:distribution <http://onto.mju.gov.si/pz/distribution/erar-davcni-dolzniki-prejemniki-javnih-sredstev-2021-06-25.zip> ;
+  dcat:distribution <http://onto.mju.gov.si/pz/distribution/erar-davcni-dolzniki-prejemniki-javnih-sredstev-2021-05-25.zip> ;
+  dcat:distribution <http://onto.mju.gov.si/pz/distribution/erar-davcni-dolzniki-prejemniki-javnih-sredstev-2021-04-25.zip> ;
+  dcat:distribution <http://onto.mju.gov.si/pz/distribution/erar-davcni-dolzniki-prejemniki-javnih-sredstev-2021-03-25.zip> ;
+  dcat:distribution <http://onto.mju.gov.si/pz/distribution/erar-davcni-dolzniki-prejemniki-javnih-sredstev-2021-02-25.zip> ;
+  dcat:distribution <http://onto.mju.gov.si/pz/distribution/erar-davcni-dolzniki-prejemniki-javnih-sredstev-2021-01-25.zip> ;
+  dcat:distribution <http://onto.mju.gov.si/pz/distribution/erar-davcni-dolzniki-prejemniki-javnih-sredstev-2020-12-25.zip> ;
+  dcat:distribution <http://onto.mju.gov.si/pz/distribution/erar-davcni-dolzniki-prejemniki-javnih-sredstev-2020-11-25.zip> ;
+  dcat:distribution <http://onto.mju.gov.si/pz/distribution/erar-davcni-dolzniki-prejemniki-javnih-sredstev-2020-10-25.zip> ;
+  dcat:distribution <http://onto.mju.gov.si/pz/distribution/erar-davcni-dolzniki-prejemniki-javnih-sredstev-2020-09-25.zip> ;
+  dcat:distribution <http://onto.mju.gov.si/pz/distribution/erar-davcni-dolzniki-prejemniki-javnih-sredstev-2020-08-25.zip> ;
+  dcat:distribution <http://onto.mju.gov.si/pz/distribution/erar-davcni-dolzniki-prejemniki-javnih-sredstev-2020-07-25.zip> ;
+  dcat:distribution <http://onto.mju.gov.si/pz/distribution/erar-davcni-dolzniki-prejemniki-javnih-sredstev-2020-06-25.zip> ;
+  dcat:distribution <http://onto.mju.gov.si/pz/distribution/erar-davcni-dolzniki-prejemniki-javnih-sredstev-2020-05-25.zip> ;
+  dcat:distribution <http://onto.mju.gov.si/pz/distribution/erar-davcni-dolzniki-prejemniki-javnih-sredstev-2020-04-25.zip> ;
+  dcat:distribution <http://onto.mju.gov.si/pz/distribution/erar-davcni-dolzniki-prejemniki-javnih-sredstev-2020-03-25.zip> ;
+  dcat:distribution <http://onto.mju.gov.si/pz/distribution/erar-davcni-dolzniki-prejemniki-javnih-sredstev-2020-02-25.zip> ;
+  dcat:distribution <http://onto.mju.gov.si/pz/distribution/erar-davcni-dolzniki-prejemniki-javnih-sredstev-2020-01-25.zip> ;
+  
+
+  # A Web page that can be navigated to in a Web browser to gain access to the 
+  # catalog, a dataset, its distributions and/or additional information.
+  dcat:landingPage <https://podatki.gov.si/dataset/kpk-evidenca-davcnih-dolznikov-in-nepredlagateljev-davcnih-obracunov> ;
+
+  # A main category of the resource. A resource can have multiple themes.
+  # <https://publications.europa.eu/resource/authority/data-theme/AGRI> Kmetijstvo, ribištvo, gozdarstvo in prehrana
+  # <https://publications.europa.eu/resource/authority/data-theme/ECON> Gospodarstvo in finance
+  # <https://publications.europa.eu/resource/authority/data-theme/EDUC> Izobraževanje, kultura in šport
+  # <https://publications.europa.eu/resource/authority/data-theme/ENER> Energetika
+  # <https://publications.europa.eu/resource/authority/data-theme/ENVI> Okolje
+  # <https://publications.europa.eu/resource/authority/data-theme/GOVE> Vlada in javni sektor
+  # <https://publications.europa.eu/resource/authority/data-theme/HEAL> Zdravje
+  # <https://publications.europa.eu/resource/authority/data-theme/INTR> Mednarodna vprašanja
+  # <https://publications.europa.eu/resource/authority/data-theme/JUST> Pravosodje, pravni sistem in javna varnost
+  # <https://publications.europa.eu/resource/authority/data-theme/OP_DATPRO> Začasni podatki
+  # <https://publications.europa.eu/resource/authority/data-theme/REGI> Regije in mesta
+  # <https://publications.europa.eu/resource/authority/data-theme/SOCI> Prebivalstvo in družba
+  # <https://publications.europa.eu/resource/authority/data-theme/TECH> Znanost in tehnologija
+  # <https://publications.europa.eu/resource/authority/data-theme/TRAN> Transport
+  dcat:theme <https://publications.europa.eu/resource/authority/data-theme/ECON> .
+
+<http://onto.mju.gov.si/pz/org/KPK>
+  a foaf:Organization, prov:Agent ;
+  foaf:name "Komisija za preprečevanje korupcije"@sl .
+
+<https://podatki.gov.si/dataset/kpk-evidenca-davcnih-dolznikov-in-nepredlagateljev-davcnih-obracunov/schema/1.0.0>
+  a csvw:Table ;
+  csvw:tableSchema [
+    a csvw:Schema ;
+    csvw:column [
+      a csvw:Column ;
+      csvw:name "Prejeta javna sredstva v 90 dnevnem roku pred objavo" ;
+      csvw:titles "Prejeta javna sredstva v 90 dnevnem roku pred objavo"@sl ;
+      csvw:datatype xsd:float ;
+      csvw:required true ;
+      csvw:propertyUrl "cnb:prejetaJavnaSredstva90dni"
+    ] ;
+    csvw:column [
+      a csvw:Column ;
+      csvw:name "Kategorija dolžnika" ;
+      csvw:titles "Kategorija dolžnika"@sl ;
+      # TODO: seems that here exists some classification. We can derive based on the data or get all possible lists? If we get a category that does not exist, list of possible categories in the ontology should be updated automatically.
+      csvw:datatype xsd:string ;
+      csvw:required true ;
+      csvw:propertyUrl "cnb:kategorijaDolznika"
+    ] ;
+    csvw:column [
+      a csvw:Column ;
+      csvw:name "Subjekt" ;
+      csvw:titles "Subjekt"@sl ;
+      csvw:datatype xsd:string ;
+      csvw:required true ;
+      csvw:propertyUrl "cnb:dolznik"
+    ] ;
+    csvw:column [
+      a csvw:Column ;
+      csvw:name "Davčna št." ;
+      csvw:titles "Davčna številka"@sl ;
+      csvw:datatype xsd:integer ;
+      csvw:required true ;
+      csvw:propertyUrl "cnb:davcnaStevilka"
+    ] ;
+    csvw:column [
+      a csvw:Column ;
+      csvw:name "Št. računov" ;
+      csvw:titles "Število računov"@sl ;
+      csvw:datatype xsd:integer ;
+      csvw:required true ;
+      csvw:propertyUrl "cnb:steviloIzdanihRacunov"
+    ] ;
+    csvw:column [
+      a csvw:Column ;
+      csvw:name "Št. zaprtih računov" ;
+      csvw:titles "Število zaprtih računov"@sl ;
+      csvw:datatype xsd:integer ;
+      csvw:required true ;
+      csvw:propertyUrl "cnb:steviloZaprtihRacunov"
+    ] ;
+    csvw:column [
+      a csvw:Column ;
+      csvw:required true ;
+      csvw:virtual true ;
+      csvw:propertyUrl "rdf:type" ;
+      csvw:valueUrl "pz:Object"
+    ] ;
+    csvw:column [
+      a csvw:Column ;
+      csvw:required true ; 
+      csvw:virtual true ;
+      csvw:propertyUrl "skos:inScheme" ;
+      csvw:valueUrl "https://podatki.gov.si/dataset/kpk-evidenca-davcnih-dolznikov-in-nepredlagateljev-davcnih-obracunov/schema/1.0.0"
+    ] ;
+    csvw:column [
+      a csvw:Column ;
+      csvw:required true ;
+      csvw:virtual true ;
+      csvw:propertyUrl "pz:inDistribution"
+    ] ;
+  ] .
+
+<http://onto.mju.gov.si/pz/distribution/erar-davcni-dolzniki-prejemniki-javnih-sredstev-2022-12-25.zip>
+  
+  # A specific representation of a dataset. A dataset might be available in 
+  # multiple serializations that may differ in various ways, including natural 
+  # language, media-type or format, schematic organization, temporal and spatial 
+  # resolution, level of detail or profiles (which might specify any or all of 
+  # the above).
+  a dcat:Distribution ;
+
+  # A name given to the resource.
+  dct:title "Davčni dolžniki prejemniki javnih sredstev - prejeta sredstva v zadnjih 90 dnevih pred objavo"@sl ;
+
+  # An unambiguous reference to the resource within a given context.
+  dct:identifier "erar-davcni-dolzniki-prejemniki-javnih-sredstev-2022-12-25-zip" ;
+
+  # A language of the resource.
+  dct:language <http://publications.europa.eu/resource/authority/language/SLV> ;
+
+  # A legal document giving official permission to do something with 
+  # the resource.
+  dct:license <https://creativecommons.org/licenses/by-sa/4.0/> ;
+
+  # The compression format of the distribution in which the data is contained 
+  # in a compressed form, e.g. to reduce the size of the downloadable file.
+  dct:compressFormat <https://publications.europa.eu/resource/authority/file-type/ZIP> ;
+
+  # The media type of the distribution as defined by IANA.
+  dcat:mediaType <https://publications.europa.eu/resource/authority/file-type/CSV> ;
+
+  # Schema definition of a distribution
+  pz:schema <https://podatki.gov.si/dataset/kpk-evidenca-davcnih-dolznikov-in-nepredlagateljev-davcnih-obracunov/schema/1.0.0> .
+
+# Data (example)
+
+<http://onto.mju.gov.si/pz/distribution/erar-davcni-dolzniki-prejemniki-javnih-sredstev-2022-12-25.zip/47bd3b31-ff76-4666-b9b2-4be7f951f959> 
+  a pz:Object ; 
+  skos:inScheme <https://podatki.gov.si/dataset/kpk-evidenca-davcnih-dolznikov-in-nepredlagateljev-davcnih-obracunov/schema/1.0.0> ;
+  pz:inDistribution <http://onto.mju.gov.si/pz/distribution/erar-davcni-dolzniki-prejemniki-javnih-sredstev-2022-12-25.zip> ;
+  cnb:prejetaJavnaSredstva90dni 2968812.26 ;
+  cnb:kategorijaDolznika "OD 500.000,01 EUR DO 1.000.000,00 EUR" ;
+  cnb:dolznik "PRIMORJE d.d. - v stečaju" ;
+  cnb:davcnaStevilka "95666222" ;
+  cnb:steviloIzdanihRacunov 12 ;
+  cnb:steviloZaprtihRacunov 0 .
+
+<http://onto.mju.gov.si/pz/distribution/erar-davcni-dolzniki-prejemniki-javnih-sredstev-2022-12-25.zip/b5d83300-7c6d-4c5b-9395-80a4a788f97c> 
+  a pz:Object ; 
+  skos:inScheme <https://podatki.gov.si/dataset/kpk-evidenca-davcnih-dolznikov-in-nepredlagateljev-davcnih-obracunov/schema/1.0.0> ;
+  pz:inDistribution <http://onto.mju.gov.si/pz/distribution/erar-davcni-dolzniki-prejemniki-javnih-sredstev-2022-12-25.zip> ;
+  cnb:prejetaJavnaSredstva90dni 239367.09 ;
+  cnb:kategorijaDolznika "OD 500.000,01 EUR DO 1.000.000,00 EUR" ;
+  cnb:dolznik "SOLCEL, d.o.o - v stečaju" ;
+  cnb:davcnaStevilka "91440904" ;
+  cnb:steviloIzdanihRacunov 9 ;
+  cnb:steviloZaprtihRacunov 0 .

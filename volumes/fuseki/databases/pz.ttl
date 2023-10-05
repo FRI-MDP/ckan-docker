@@ -1,0 +1,1661 @@
+@prefix   dcat: <http://www.w3.org/ns/dcat#> .
+@prefix    dct: <http://purl.org/dc/terms/> .
+@prefix    dce: <http://purl.org/dc/elements/1.1/> .
+@prefix   foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix    owl: <http://www.w3.org/2002/07/owl#> .
+@prefix    rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix   rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix    xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix   adms: <http://www.w3.org/ns/adms#> .
+@prefix   prov: <http://www.w3.org/ns/prov#> .
+@prefix   vann: <http://purl.org/vocab/vann/> .
+@prefix schema: <https://schema.org/> .
+@prefix     sw: <http://www.w3.org/2003/06/sw-vocab-status/ns#> .
+@prefix   skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix   vaem: <http://www.linkedmodel.org/schema/vaem#> .
+@prefix     cc: <http://creativecommons.org/ns#> . 
+@prefix   csvw: <http://www.w3.org/ns/csvw#> .
+@prefix    xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix  vcard: <http://www.w3.org/2006/vcard/ns#> .
+@prefix    cnb: <http://onto.mju.gov.si/centralni-besednjak-core#> .
+@prefix    dqv: <http://www.w3.org/ns/dqv#> .
+@prefix    duv: <http://www.w3.org/ns/duv#> .
+@prefix dcatap: <http://data.europa.eu/r5r/> .
+@prefix   spdx: <http://spdx.org/rdf/terms#> .
+@prefix   odrl: <http://www.w3.org/ns/odrl/2/> .
+@prefix   locn: <http://w3.org/ns/locn#> .
+@prefix     pz: <http://onto.mju.gov.si/podatkovni-zemljevid#> .
+
+<http://onto.mju.gov.si/podatkovni-zemljevid>
+  a owl:Ontology ;    
+  vann:preferredNamespaceUri "http://onto.mju.gov.si/podatkovni-zemljevid#";
+  owl:versionIRI <http://onto.mju.gov.si/podatkovni-zemljevid/0.0.4#> ;
+  owl:versionInfo "0.0.4"@en ;
+  cc:license <http://creativecommons.org/licenses/by/4.0/> ;
+  vann:preferredNamespacePrefix "pz";
+  dct:created "2023-09-29"^^xsd:date ;  
+  rdfs:label "Shema podatkovnega zemljevida"@sl ;
+  rdfs:label "Data map schema"@en ;
+  dct:title "Shema podatkovnega zemljevida"@sl ;
+  dct:title "Data map schema"@en ;
+  dce:title "The Slovene Data map ontology"@en ;
+  rdfs:comment "PZ is an RDF vocabulary designed to facilitate description of Slovene Open Data portals. By using PZ to describe datasets, distributions and attributes, publishers may increase discoverability of their datasets and enable users to find an appropriate API to consume the desired data."@en ;
+  rdfs:comment "PZ je slovar RDF, ki je zasnovan z namenom opisovanja slovenskih portalov odprtih podatkov. Uporaba sheme PZ za opisovanje zbirk podatkov, posameznih izvozov in atributov lahko upravljalcem podatkov poveča vidnost njihovih podatkov in omogoči končnim uporabnikom, da najdejo ustrezen API za avtomatsko pridobivanje le njih."@sl ;
+  schema:creator pz:DejanLavbic, pz:SlavkoZitnik ;
+  schema:publisher pz:MJU ;
+  schema:image <https://dejanl.github.io/PZ/shema.svg> .
+
+pz:MJU
+  a foaf:Organization ;
+  foaf:name "Ministrstvo za javno upravo"@en ;
+  foaf:homepage <https://www.gov.si/drzavni-organi/ministrstva/ministrstvo-za-javno-upravo/> .
+
+pz:DejanLavbic 
+  a foaf:Person ;
+  foaf:name "Dejan Lavbič"@en ;
+  schema:affiliation [
+    foaf:homepage <https://www.fri.uni-lj.si> ;
+    foaf:name "University of Ljubljana, Faculty of Computer and Information Science" ;
+  ] ;
+  foaf:homepage <https://www.lavbic.net> ;
+  foaf:mbox "dejan.lavbic@fri.uni-lj.si" ;
+  rdfs:seeAlso <http://orcid.org/0000-0003-2390-4160> .
+
+pz:SlavkoZitnik
+  a foaf:Person ;
+  foaf:name "Slavko Žitnik"@en ;
+  schema:affiliation [
+    foaf:homepage <https://www.fri.uni-lj.si> ;
+    foaf:name "University of Ljubljana, Faculty of Computer and Information Science" ;
+  ] ;
+  foaf:homepage <https://zitnik.si> ;
+  foaf:mbox "slavko.zitnik@fri.uni-lj.si" ;
+  rdfs:seeAlso <http://orcid.org/0000-0003-3452-1106> .
+
+###############################################################################
+##  Classes
+###############################################################################
+
+dcat:Catalog
+  a owl:Class ;
+  rdfs:label "Catalog"@en ;
+  rdfs:label "Katalog"@sl ;
+  skos:definition "A curated collection of metadata about resources (e.g., datasets and data services in the context of a data catalog)."@en ;
+  skos:definition "A catalogue or repository that hosts the Datasets or Data Services being described."@en ;
+  vann:example "Portal Odprti podatki Slovenije (OPSI)."@sl,
+    "Open data of Slovenia Portal (OPSI)"@en ;
+  vaem:rationale "The concept was added to the ontology to represent the root concept that includes all the datasets along with the distributions within an open data portal, which is represented using this concept."@en,
+    "Koncept je bil dodan v ontologijo, da predstavlja korenski koncept, ki vključuje vse nabore podatkov in distribucije v okviru portala odprtih podatkov. Koncept predstavlja ta portal."@sl ;
+  skos:definition "Repozitorij, ki gosti nabore podatkov ali podatkovne storitve."@sl .
+
+dcat:Dataset
+  a owl:Class ;
+  rdfs:label "Dataset"@en ;
+  rdfs:label "Nabor podatkov"@sl ;
+  skos:definition "A collection of data, published or curated by a single source, and available for access or download in one or more represenations."@en ;
+  skos:definition "A conceptual entity that represents the information published."@en ;
+  skos:definition "Nabor podatkov predstavlja objavljeno informacijo."@sl .
+
+dcat:Distribution
+  a owl:Class ;
+  rdfs:label "Distribution"@en ;
+  rdfs:label "Distribucija"@sl ;
+  skos:definition "A specific representation of a dataset. A dataset might be available in multiple serializations that may differ in various ways, including natural language, media-type or format, schematic organization, temporal and spatial resolution, level of detail or profiles (which might specify any or all of the above)."@en ;
+  skos:definition "A physical embodiment of the Dataset in a particular format."@en ;
+  skos:definition "Fizična oblika nabora podatkov v določenem formatu."@sl .
+
+dcat:DataService
+  a owl:Class ;
+  rdfs:label "Data service"@en ;
+  rdfs:label "Podatkovna storitev"@sl ;
+  skos:definition "A site or end-point providing operations related to the discovery of, access to, or processing functions on, data or related resources."@en ;
+  skos:definition "A collection of operations that provides access to one or more datasets or data processing functions."@en ;
+  skos:definition "Zbirka operacij, ki omogoča dostop do nabora podatkov ali obdelave podatkov."@sl .
+
+dcat:CatalogRecord
+  a owl:Class ;
+  rdfs:label "Catalog Record"@en ;
+  rdfs:label "Zapis v katalogu"@sl ;
+  skos:definition "A record in a data catalog, describing the registration of a single dataset or data service."@en ;
+  skos:definition "Zapis v podatkovnem katalogu, ki opisuje registracijo enega podatkovnega vira ali storitve."@sl .
+
+pz:Harvesting
+  a owl:Class ;
+  rdfs:subClassOf prov:Activity ;
+  rdfs:label "Harvesting"@en ;
+  rdfs:label "Način zbiranja podatkov"@sl ;
+  skos:definition "Description and metadata regarding data retrieval and ingestion into CKAN."@en ;
+  skos:definition "Opis in metapodatki o pridobivanju in vstavljanju podatkov v CKAN."@sl . 
+
+adms:Identifier
+  a owl:Class ;
+  rdfs:label "Identifier"@en,
+    "Identifikator"@sl ;
+  skos:definition "A complex type (UN/CEFACT) that enables definition of unique identifiers."@en,
+    "Kompleksni tip (UN/CEFACT), ki omogoča definicijo zapisa enoličnih identifikatorjev."@sl .
+
+dct:Location
+  a owl:Class ;
+  rdfs:label "Location"@en,
+    "Lokacija"@sl ;
+  skos:definition "A spatial region or named place."@en,
+    "Prostorska regija ali imenovan kraj."@sl .
+
+foaf:Agent
+  a owl:Class ;
+  rdfs:label "Agent"@en,
+    "Agent"@sl ;
+  skos:definition "An agent (eg. person, group, software or physical artifact). "@en,
+    "Agent (npr. oseba, skupina, programski ali fizični artefakt)."@sl .
+
+skos:Concept
+  a owl:Class ;
+  rdfs:label "Concept"@en,
+    "Koncept"@sl ;
+  skos:definition "A SKOS concept can be viewed as an idea or notion; a unit of thought. However, what constitutes a unit of thought is subjective, and this definition is meant to be suggestive, rather than restrictive."@en,
+    "SKOS koncept je lahko predstavljen kot ideja ali pojem; enota misli. Čeprav je v tem smislu lahko subjektiven, je njegova definicija bolj sugestivna kot restriktivna."@sl .
+
+skos:ConceptScheme
+  a owl:Class ;
+  rdfs:label "Concept scheme"@en,
+    "Konceptualna shema"@sl ;
+  skos:definition "A SKOS concept scheme can be viewed as an aggregation of one or more SKOS concepts. Semantic relationships (links) between those concepts may also be viewed as part of a concept scheme. This definition is, however, meant to be suggestive rather than restrictive, and there is some flexibility in the formal data model."@en,
+    "Konceptualna shema SKOS je lahko predstavljena kot agregacija enega ali več konceptov SKOS. Semantične povezave med koncepti so lahko tudi del konceptualne sheme. Ta definicija je bolj sugestivna kot restriktivna in omogoča nekaj fleksibilnosti v formalnem podatkovnem modelu."@sl .
+
+dct:RightsStatement
+  a owl:Class ;
+  rdfs:label "Rights statement"@en,
+    "Izjava o pravicah"@sl ;
+  skos:definition "A statement about the intellectual property rights (IPR) held in or over a resource, a legal document giving official permission to do something with a resource, or a statement about access rights."@en,
+    "Izjava o intelektualnih pravicah (IPR) v in o podatkovnem viru. Uraden dokument, ki podeljuje pravice za določen tip dela z virom ali izjava o pravicah dostopa."@sl .
+
+dct:LicenseDocument
+  a owl:Class ;
+  rdfs:subClassOf dct:RightsStatement ;
+  rdfs:label "License document"@en,
+    "Licenčni dokument"@sl ;
+  skos:definition "A legal document giving official permission to do something with a resource."@en,
+    "Uradni dokument, ki uradno podeljuje pravice za delo z virom."@sl .
+
+pz:LegalGround
+  a owl:Class ;
+  rdfs:subClassOf dct:RightsStatement ;
+  rdfs:label "Legal ground"@en,
+    "Pravna podlaga"@sl ;
+  skos:definition "Legal grounds for publicly available dataset."@en,
+    "Pravna podlaga za javno objavljeno zbirko podatkov."@sl .
+
+prov:Activity
+  a owl:Class ;
+  rdfs:label "Activity"@en,
+    "Aktivnost"@sl ;
+  skos:definition "An activity is something that occurs over a period of time and acts upon or with entities; it may include consuming, processing, transforming, modifying, relocating, using, or generating entities."@en,
+    "Aktivnost je nekaj, kar se zgodi v določenem časovnem obdobju in vpliva na entitete. Vključuje lahko uporabo, procesiranje, transformacijo, spreminjanje, premikanje ali generiranje novih entitet."@sl .
+
+dqv:QualityMeasurement
+  a owl:Class ;
+  rdfs:label "Quality measurement"@en,
+    "Meritev kakovosti"@sl ;
+  skos:definition "Represents the evaluation of a given dataset (or dataset distribution) against a specific quality metric."@en,
+    "Predstavlja evalvacijo podatkovnega vira (ali distribucije) glede na specifične metrike kvalitete."@sl .
+
+dqv:Metric
+  a owl:Class ;
+  rdfs:label "Metric"@en,
+    "Metrika"@sl ;
+  skos:definition "Represents a standard to measure a quality dimension. An observation (instance of dqv:QualityMeasurement) assigns a value in a given unit to a Metric."@en,
+    "Predstavlja standard za merjenje izbrane dimenzije kvalitete. Opazovana vrednost (primerek dqv:QualityMeasurement) priredi vrednost v izbrani enoti primerku tipa Metrika."@sl .
+
+dqv:Dimension
+  a owl:Class ;
+  rdfs:label "Dimension"@en,
+    "Dimenzija"@sl ;
+  skos:definition "Represents criteria relevant for assessing quality. Each quality dimension must have one or more metric to measure it. A dimension is linked with a category using the dqv:inCategory property."@en,
+    "Predstavlja kriterije, relevantne za preverjanje kvalitete. Vsaka dimenzija kvalitete mora imeti eno ali več metrik za njeno merjenje. Dimenzija je povezana s kategorijo preko lastnosti dqv:inCategory."@sl .
+
+dct:Standard
+  a owl:Class ;
+  rdfs:label "Standard"@en,
+    "Standard"@sl ;
+  skos:definition "A reference point against which other things can be evaluated or compared."@en,
+    "Referenčna točka glede na katero se izvaja evalvacijo ali primerjave."@sl .
+
+duv:UserFeedback
+  a owl:Class ;
+  rdfs:label "User feedback"@en,
+    "Uporabniški odziv"@sl ;
+  skos:definition "User feedback on a dataset or distribution."@en,
+    "Uporabniški odziv za podatkovni vir ali distribucijo."@sl .
+
+duv:RatingFeedback
+  a owl:Class ;
+  rdfs:label "Rating feedback"@en,
+    "Odziv ocenjevanja"@sl ;
+  skos:definition "Predefined criteria used to express a user opinion about a dataset or distribution using a discrete range of values."@en,
+    "Vnaprej določeni kriteriji za izražanje mnenja uporabnikov o podatkovnem viru ali distribuciji z uporabo diskretnih vrednosti."@sl .
+
+duv:Usage
+  a owl:Class ;
+  rdfs:label "Usage"@en,
+    "Uporaba"@sl ;
+  skos:definition "Actions that can be performed on a given dataset or distribution."@en,
+    "Akcije, ki se lahko izvajajo na danem podatkovnem viru ali distribuciji."@sl .
+
+duv:UsageTool
+  a owl:Class ;
+  rdfs:label "Usage tool"@en,
+    "Orodje uporabe"@sl ;
+  skos:definition "A tool that can use a dataset or distribution."@en,
+    "Orodje, ki lahko uporablja podatkovni vir ali distribucijo."@sl .
+
+csvw:Schema
+  a owl:Class ;
+  rdfs:label "Schema"@en,
+    "Shema"@sl ;
+  skos:definition "A Schema is a definition of a tabular format that may be common to multiple tables."@en,
+    "Shema je definicija podatkov v tabelaričnem formatu, ki je lahko enak večim tabelam."@sl .
+
+csvw:Column
+  a owl:Class ;
+  rdfs:label "Column"@en,
+    "Stolpec"@sl ;
+  skos:definition "A Column represents a vertical arrangement of Cells within a Table."@en,
+    "Stolpec predstavlja vertikalno razporeditev celic v tabeli."@sl .
+
+csvw:uriTemplate
+  a owl:Class ;
+  rdfs:subClassOf xsd:string ;
+  rdfs:label "URI template"@en,
+    "predloga za URI"@sl .
+
+vcard:Kind
+  a owl:Class ;
+  rdfs:label "Kind"@en ;
+  rdfs:label "Vrsta kontakta"@sl ;
+  skos:definition "The kind of object the vCard represents."@en ,
+    "Vrsta kontakta, ki ga predstavlja vCard."@sl .
+
+prov:Agent 
+  a owl:Class ;
+  rdfs:label "Agent"@en , "Agent"@sl ;
+  skos:definition "Bears some form of responsibility for an activity taking place, for the existence of an entity, or for another agent's activity."@en ,
+    "Nosi določeno obliko odgovornosti za dejavnost, ki se izvaja, za obstoj entitete ali za dejavnost drugega agenta."@sl .
+
+csvw:Table
+  a owl:Class ;
+  rdfs:label "Table"@en , "Tabela"@sl ;
+  skos:definition "An annotated table with additional metadata."@en ,
+    "Označena tabela z dodatnimi metapodatki."@sl .
+
+foaf:Organization 
+  a owl:Class ;
+  rdfs:label "Organization"@en , "Organizacija"@sl ;
+  skos:definition "Social instititutions such as companies, societies etc."@en ,
+    "Socialne institucije, kot so podjetja, društva itd."@sl .
+
+cnb:UpravnaEnota 
+  a owl:Class ;
+  rdfs:label "Administrative unit"@en , "Upravna enota"@sl .
+
+pz:Object
+  a owl:Class ;
+  rdfs:subClassOf skos:Concept ;
+  rdfs:label "Object (instance)"@en,
+    "Objekt (primerek)"@sl ;
+  skos:definition "An object that is a specific instance in a distribution."@en,
+    "Objekt, ki predstavlja specifičen primerek v distribuciji."@sl .
+
+###############################################################################
+##  Properties
+###############################################################################
+prov:atTime
+  a owl:DatatypeProperty ;
+  rdfs:label "at time"@en ;
+  rdfs:label "ob času"@sl ;
+  skos:definition "An event, that happened at specific time."@en ;
+  skos:definition "Dogodek, ki se zgodi ob določenem času."@sl ;
+  rdfs:domain pz:Harvesting ;
+  rdfs:range xsd:dateTime .
+  
+pz:metadataTime
+  a owl:DatatypeProperty ;
+  rdfs:label "metadata time"@en ;
+  rdfs:label "čas metapodatkov"@sl ;
+  skos:definition "Time, when metadata was collected."@en ;
+  skos:definition "Čas, ko so bili pridobljeni metapodatki."@sl ;
+  owl:maxCardinality 1 ;
+  rdfs:domain pz:Harvesting ;
+  rdfs:range xsd:dateTime .
+
+dct:title
+  a owl:DatatypeProperty ;
+  rdfs:label "title"@en ;
+  rdfs:label "naziv"@sl ;
+  skos:definition "A name given to the resource."@en ;
+  skos:definition "Naziv, dodeljen viru."@sl ;
+  vaem:rationale "Mandatory (Catalog, Dataset, ConceptScheme, Data service, Harvesting, Usage, UsageTool), Optional (Distribution, Catalog record)."@en,
+    "Obvezno (Katalog, Podatkovni vir, Konceptualna shema, Podatkovna storitev, Harvesting, Uporaba, Orodje uporabe), Opcijsko (Distribucija, Zapis v katalogu)."@sl ;
+  rdfs:domain dcat:Catalog, dcat:Dataset, dcat:Distribution, skos:ConceptScheme, dcat:CatalogRecord, dcat:DataService, pz:Harvesting, duv:Usage, duv:UsageTool ;
+  rdfs:range rdfs:Literal .
+
+dct:description
+  a owl:DatatypeProperty ;
+  rdfs:label "description"@en ;
+  rdfs:label "opis"@sl ;
+  skos:definition "An account of the resource."@en ;
+  skos:definition "Opis vira."@sl ;
+  rdfs:range rdfs:Literal ;
+  vaem:rationale "Mandatory (Catalog, Dataset, Usage, Usage tool), Recommended (Distribution), Optional (Catalog record, Data service)."@en,
+    "Obvezno (Katalog, Podatkovni vir, Uporaba, Orodje uporabe), Priporočeno (Distribucija), Opcijsko (Zapis v katalogu, Podatkovna storitev)."@sl ;
+  rdfs:domain dcat:Catalog, 
+    dcat:Dataset,
+    dcat:Distribution,
+    dcat:CatalogRecord,
+    dcat:DataService,
+    duv:Usage,
+    duv:UsageTool .
+
+foaf:homepage
+  a owl:ObjectProperty ;
+  rdfs:label "homepage"@en ;
+  rdfs:label "domača stran"@sl ;  
+  rdfs:range foaf:Document ;
+  owl:minCardinality 1 ;
+  owl:maxCardinality 1 ;
+  vaem:rationale "Mandatory (Catalog)."@en,
+    "Obvezno (Katalog)."@sl ;
+  rdfs:domain dcat:Catalog .
+
+dcat:themeTaxonomy
+  a owl:ObjectProperty ;
+  rdfs:label "theme taxonomy"@en ;
+  rdfs:label "klasifikacija področja"@sl ;
+  skos:definition "The knowledge organization system (KOS) used to classify catalog's datasets."@en, "Sistem organizacije znanja (KOS), ki se uporablja za razvrščanje naborov podatkov kataloga."@sl ;
+  vaem:rationale "Mandatory."@en,
+    "Obvezno"@sl ;
+  owl:minCardinality 1 ;
+  rdfs:domain dcat:Catalog ;
+  rdfs:range skos:ConceptScheme .
+
+dcat:theme
+  a owl:ObjectProperty ;
+  rdfs:label "theme"@en ;
+  rdfs:label "področje"@sl ;
+  skos:definition "A main category of the resource. A resource can have multiple themes."@en ;
+  vaem:rationale "Mandatory."@en,
+    "Obvezno"@sl ;
+  owl:minCardinality 1 ;
+  rdfs:domain dcat:Catalog, dcat:Dataset ;
+  rdfs:range skos:Concept .
+
+dcat:dataset
+  a owl:ObjectProperty ;
+  rdfs:label "dataset"@en ;
+  rdfs:label "nabor podatkov"@sl ;
+  skos:definition "A collection of data that is listed in the catalog."@en ;
+  vaem:rationale "Mandatory."@en,
+    "Obvezno"@sl ;
+  owl:minCardinality 1 ;
+  rdfs:domain dcat:Catalog ;
+  rdfs:range dcat:Dataset .
+
+dcat:publisher
+  a owl:ObjectProperty ;
+  rdfs:label "publisher"@en ;
+  rdfs:label "izdajatelj"@sl ;
+  skos:definition "An entity responsible for making the resource available."@en, 
+    "Entiteta, ki je odgovorna za razpoložljivost vira."@sl ;
+  vaem:rationale "Mandatory."@en,
+    "Obvezno"@sl ;
+  owl:minCardinality 1 ;
+  owl:maxCardinality 1 ;
+  rdfs:domain dcat:Catalog ;
+  rdfs:range foaf:Agent .
+
+dct:issued
+  a owl:DatatypeProperty ;
+  rdfs:label "date issued"@en ;
+  rdfs:label "datum izdaje"@sl ;
+  skos:definition "Date of formal issuance (e.g., publication) of the resource."@en, 
+    "Datum formalne izdaje (npr. objave) vira."@sl ;
+  vaem:rationale "Recommended (Catalog, Catalog record), Mandatory (Dataset) Optional (Distribution)."@en,
+    "Priporočeno (Catalog, Zapis v katalogu), Obvezno (Podatkovni vir), Opcijsko (Distribucija)."@sl ;
+  owl:maxCardinality 1 ;
+  rdfs:domain dcat:Catalog, dcat:Dataset, dcat:Distribution, dcat:CatalogRecord ;
+  rdfs:range xsd:dateTime .
+
+dct:language
+  a owl:ObjectProperty ;
+  rdfs:label "language"@en ;
+  rdfs:label "jezik"@sl ;
+  skos:definition "A language of the resource."@en, "Jezik vira."@sl ;
+  vaem:rationale "Recommended (Catalog), Optional (Dataset, Distribution, Catalog record)."@en,
+    "Priporočeno (Katalog), Opcijsko (Podatkovni vir, Distribucija, Zapis v katalogu)."@sl ;
+  rdfs:domain dcat:Catalog, dcat:Dataset, dcat:Distribution, dcat:CatalogRecord ;
+  rdfs:range dct:LinguisticSystem .
+
+dct:modified
+  a owl:DatatypeProperty ;
+  rdfs:label "date modified"@en ;
+  rdfs:label "datum spremembe"@sl ;
+  skos:definition "Date on which the resource was changed."@en, "Datum spremembe vira."@sl ;
+  vaem:rationale "Recommended (Catalog, CatalogRecord), Mandatory (Dataset), Optional (Distribution)."@en,
+    "Priporočeno (Katalog, Zapis v katalogu), Obvezno (Podatkovni vir), Opcijsko (Distribucija)."@sl ;
+  owl:maxCardinality 1 ;
+  rdfs:domain dcat:Catalog, dcat:Dataset, dcat:Distribution, dcat:CatalogRecord ;
+  rdfs:range xsd:dateTime .
+
+dct:license
+  a owl:ObjectProperty ;
+  rdfs:label "license"@en ;
+  rdfs:label "licenca"@sl ;
+  skos:definition "A legal document giving official permission to do something with the resource."@en, "Pravni dokument, ki daje uradno dovoljenje za uporabo vira."@sl ;
+  vaem:rationale "Recommended (Catalog), Mandatory (Dataset), Optional (Data service)."@en,
+    "Priporočeno (Katalog), Obvezno (Podatkovni vir), Opcijsko (Podatkovna storitev)."@sl ;
+  owl:maxCardinality 1 ;
+  rdfs:domain dcat:Catalog, dcat:DataService ;
+  rdfs:range dct:LicenseDocument .
+
+dcat:service
+  a owl:ObjectProperty ;
+  rdfs:label "service"@en ;
+  rdfs:label "storitev"@sl ;
+  skos:definition "A site or endpoint that is listed in the catalog."@en, "Mesto ali končna točka, ki je navedena v katalogu."@sl ;
+  vaem:rationale "Recommended."@en,
+    "Priporočeno"@sl ;
+  rdfs:domain dcat:Catalog ;
+  rdfs:range dcat:DataService .
+
+dct:spatial
+  a owl:ObjectProperty ;
+  rdfs:label "spatial coverage"@en ;
+  rdfs:label "geografsko območje"@sl ;
+  skos:definition "Spatial characteristics of the resource."@en ;
+  skos:definition "Prostorske značilnosti vira."@sl ;
+  vaem:rationale "Recommended."@en,
+    "Priporočeno"@sl ;
+  rdfs:domain dcat:Catalog, dcat:Dataset ;
+  rdfs:range dct:Location .
+
+dcat:record
+  a owl:ObjectProperty ;
+  rdfs:label "record"@en ;
+  rdfs:label "zapis"@sl ;
+  skos:definition "A record describing the registration of a single dataset or data service that is part of the catalog."@en, "Zapis, ki opisuje registracijo posameznega nabora podatkov ali podatkovne storitve, ki je del kataloga."@sl ;
+  vaem:rationale "Optional."@en,
+    "Opcijsko"@sl ;
+  rdfs:domain dcat:Catalog ;
+  rdfs:range dcat:CatalogRecord .
+
+dct:creator
+  a owl:ObjectProperty ;
+  rdfs:label "creator"@en ;
+  rdfs:label "ustvarjalec"@sl ;
+  skos:definition "An entity responsible for making the resource."@en,
+    "Entiteta, odgovorna za ustvarjanje vira."@sl ;
+  vaem:rationale "Optional."@en,
+    "Opcijsko"@sl ;
+  rdfs:domain dcat:Catalog, dcat:Dataset ;
+  rdfs:range foaf:Agent .
+
+dct:catalog
+  a owl:ObjectProperty ;
+  rdfs:label "katalog"@en ;
+  rdfs:label "katalog"@sl ;
+  skos:definition "A catalog whose contents are of interest in the context of this catalog."@en,
+    "Katalog, katerega vsebina je relevantna v kontekstu trenutnega kataloga."@sl ;
+  vaem:rationale "Optional."@en,
+    "Opcijsko"@sl ;
+  rdfs:domain dcat:Catalog ;
+  rdfs:range dcat:Catalog .
+
+dct:rights
+  a owl:ObjectProperty ;
+  rdfs:label "rights"@en ;
+  rdfs:label "pravice"@sl ;
+  skos:definition "Information about rights held in and over the resource."@en,
+    "Podatki o pravicah v in o viru."@sl ;
+  vaem:rationale "Optional, maxCardinality=1 (Distribution)."@en,
+    "Opcijsko, maxCardinality=1 (Distribucija)."@sl ;
+  rdfs:domain dcat:Catalog, dcat:Distribution ;
+  rdfs:range dct:RightsStatement .
+
+dct:hasPart
+  a owl:ObjectProperty ;
+  rdfs:label "contains part"@en ;
+  rdfs:label "vsebuje del"@sl ;
+  skos:definition "Contains a part of other catalog."@en, 
+    "Vsebuje del drugega kataloga."@sl ;
+  vaem:rationale "Optional."@en,
+    "Opcijsko"@sl ;
+  rdfs:domain dcat:Catalog ;
+  rdfs:range dcat:Catalog .
+
+dct:isPartOf
+  a owl:ObjectProperty ;
+  rdfs:label "part of"@en ;
+  rdfs:label "je del"@sl ;
+  skos:definition "Indication of the catalog being a part of other catalog."@en, 
+    "Navedba, da je katalog del drugih katalogov."@sl ;
+  vaem:rationale "Optional."@en,
+    "Opcijsko"@sl ;
+  rdfs:domain dcat:Catalog ;
+  rdfs:range dcat:Catalog ; 
+  owl:maxCardinality 1 .
+
+dcat:accessURL
+  a owl:ObjectProperty ;
+  rdfs:label "access URL"@en,
+    "URL dostopa"@sl ;
+  skos:definition "URL at which the data was accessed."@en,
+    "URL, do koder je bilo dostopano do podatkov."@sl ;
+  rdfs:range rdfs:Resource ;
+  vaem:rationale "Mandatory (Distribution), Recommended (Harvesting)."@en,
+    "Obvezno (Distribucija), Priporočeno (Način zbiranja podatkov)."@sl ;
+  rdfs:domain dcat:Distribution,
+    pz:Harvesting .
+
+csvw:tableSchema
+  a owl:ObjectProperty ;
+  rdfs:label "table schema"@en,
+    "shema tabele"@sl ;
+  skos:definition "Schema of the provided distribution data."@en,
+    "Shema podatkov, ki so na voljo v naboru podatkov."@sl ;
+  vaem:rationale "Mandatory."@en,
+    "Obvezno."@sl ;
+  owl:minCardinality 1 ;
+  owl:maxCardinality 1 ;
+  rdfs:domain dcat:Distribution ;
+  rdfs:range csvw:Schema .
+
+dcatap:availability
+  a owl:ObjectProperty ;
+  rdfs:label "availability"@en,
+    "dostopnost"@sl ;
+  skos:definition "The property states how long in the distribution planned to be available."@en,
+    "Lastnost definira, kako dolgo je v planu, da je distribucija dostopna."@sl ;
+  vaem:rationale "Recommended."@en,
+    "Priporočeno."@sl ;
+  owl:maxCardinality 1 ;
+  rdfs:domain dcat:Distribution ;
+  rdfs:range skos:Concept .
+
+dct:format
+  a owl:ObjectProperty ;
+  rdfs:label "format"@en,
+    "format"@sl ;
+  skos:definition "The file format, physical medium, or dimensions of the resource."@en,
+    "Tip datotečnega zapisa, fizičnega medija ali dimenzij vira."@sl ;
+  vaem:rationale "Recommended."@en,
+    "Priporočeno."@sl ;
+  owl:maxCardinality 1 ;
+  rdfs:domain dcat:Distribution ;
+  rdfs:range dct:MediaTypeOrExtent .
+
+duv:hasUsage
+  a owl:ObjectProperty ;
+  rdfs:label "has usage"@en,
+    "ga uporablja"@sl ;
+  skos:definition "Dataset or distribution usage guidance/instructions."@en,
+    "Smernice/navodila za uporabo podatkovnega vira ali distribucije."@sl ;
+  vaem:rationale "Recommended."@en,
+    "Priporočeno."@sl ;
+  rdfs:domain dcat:Dataset, dcat:Distribution ;
+  rdfs:range duv:Usage .
+
+duv:hasFeedback
+  a owl:ObjectProperty ;
+  rdfs:label "has dataset feedback"@en,
+    "ima odziv za podatkovni vir"@sl ;
+  skos:definition "User feedback associated with Dataset or distribution."@en,
+    "Uporabniški odziv, vezan na podatkovni vir ali distribucijo."@sl ;
+  vaem:rationale "Recommended."@en,
+    "Priporočeno."@sl ;
+  rdfs:domain dcat:Dataset, dcat:Distribution ;
+  rdfs:range duv:UserFeedback .
+
+pz:harvesting
+  a owl:ObjectProperty ;
+  rdfs:label "harvesting"@en,
+    "način zajema podatkov"@sl ;
+  skos:definition "Description of data harvesting (ETL)."@en,
+    "Opis zajemanja podatkov (ETL)."@sl ;
+  vaem:rationale "Recommended."@en,
+    "Priporočeno."@sl ;
+  rdfs:domain dcat:Distribution ;
+  rdfs:range pz:Harvesting .
+
+dcat:byteSize
+  a owl:DatatypeProperty ;
+  rdfs:label "byte size"@en,
+    "velikost v bajtih"@sl ;
+  skos:definition "The size of a distribution in bytes."@en,
+    "Velikost distribucije v bajtih."@sl ;
+  vaem:rationale "Optional."@en,
+    "Opcijsko."@sl ;
+  owl:maxCardinality 1 ;
+  rdfs:domain dcat:Distribution ;
+  rdfs:range xsd:decimal .
+
+spdx:checksum
+  a owl:ObjectProperty ;
+  rdfs:label "checksum"@en,
+    "kontrolna vsota"@sl ;
+  skos:definition "The checksum property provides a mechanism that can be used to verify that the contents of a File or Package have not changed."@en,
+    "Lastnost, ki zagotavlja mehanizem za preverjanje, če se vsebina datoteke ali paketa ni spremenila."@sl ;
+  vaem:rationale "Optional."@en,
+    "Opcijsko."@sl ;
+  owl:maxCardinality 1 ;
+  rdfs:domain dcat:Distribution ;
+  rdfs:range spdx:Checksum .
+
+dcat:compressFormat
+  a owl:ObjectProperty ;
+  rdfs:label "compression format"@en,
+    "format kompresiranja"@sl ;
+  skos:definition "The compression format of the distribution in which the data is contained in a compressed form, e.g. to reduce the size of the downloadable file."@en,
+    "Format kompresiranja, v katerem so vsebovani stisnjeni podatki distribucije, npr. z namenom zmanjšanja velikosti datoteke."@sl ;
+  vaem:rationale "Optional."@en,
+    "Opcijsko."@sl ;
+  owl:maxCardinality 1 ;
+  rdfs:domain dcat:Distribution ;
+  rdfs:range dct:MediaType .
+
+foaf:page
+  a owl:ObjectProperty ;
+  rdfs:label "documentation"@en,
+    "dokumentacija"@sl ;
+  skos:definition "This property refers to a page or document about this Dataset or Distribution."@en,
+    "Ta lastnost se nanaša na stran ali dokument o izbranem podatkovnem viru ali distribuciji."@sl ;
+  vaem:rationale "Optional."@en,
+    "Opcijsko."@sl ;
+  rdfs:domain dcat:Dataset, dcat:Distribution ;
+  rdfs:range foaf:Document .
+
+dcat:landingPage
+  a owl:ObjectProperty ;
+  rdfs:label "home web page"@en,
+    "domača spletna stran"@sl ;
+  skos:definition "A Web page that can be navigated to in a Web browser to gain access to the catalog, a dataset, its distributions and/or additional information."@en,
+    "Spletna stran, preko katere se lahko dostopa do kataloga, podatkovnega vira ali distribucije in/ali dodatnih podatkov."@sl ;
+  vaem:rationale "Mandatory."@en,
+    "Obvezno."@sl ;
+  rdfs:domain dcat:Dataset ;
+  rdfs:range foaf:Document .
+
+dcat:downloadURL
+  a owl:ObjectProperty ;
+  rdfs:label "download URL"@en,
+    "URL za masovni prenos"@sl ;
+  skos:definition "The URL of the downloadable file in a given format. E.g. CSV file or RDF file. The format is indicated by the distribution's dct:format and/or dcat:mediaType."@en,
+    "URL prenosljive datoteke v danem formatu. Na primer datoteka CSV ali RDF. Format je določen z lastnostjo distribucije - dct:format in/ali dcat:mediaType."@sl ;
+  vaem:rationale "Optional."@en,
+    "Opcijsko."@sl ;
+  rdfs:domain dcat:Distribution ;
+  rdfs:range rdf:Resource .
+
+odrl:hasPolicy
+  a owl:ObjectProperty ;
+  rdfs:label "has ODRL policy"@en,
+    "definira ODRL pravila"@sl ;
+  skos:definition "Identifies an ODRL (Open Digital Rights Language) Policy for which the identified Asset is the target Asset to all the Rules."@en,
+    "Definira ODRL (Open Digital Rights Language) pravice, za katere je identificiran objekt ciljni objekt, za katerega pravice veljajo."@sl ;
+  vaem:rationale "Optional."@en,
+    "Opcijsko."@sl ;
+  owl:maxCardinality 1 ;
+  rdfs:domain dcat:Distribution ;
+  rdfs:range odrl:Policy .
+
+dct:conformsTo
+  a owl:ObjectProperty ;
+  rdfs:label "conforms to"@en,
+    "skladno z"@sl ;
+  skos:definition "An established standard to which the described resource conforms."@en,
+    "Uveljavljen standard, s katerim je izbrani vir skladen."@sl ;
+  vaem:rationale "Optional (Dataset, Distribution), Recommended (Catalog record)."@en,
+    "Opcijsko (Podatkovni vir, Distribucija), Priporočeno (Zapis v katalogu)."@sl ;
+  rdfs:domain dcat:Dataset, dcat:Distribution, dcat:CatalogRecord ;
+  rdfs:range dct:Standard .
+
+dcat:mediaType
+  a owl:ObjectProperty ;
+  rdfs:label "media type"@en,
+    "tip zapisa"@sl ;
+  skos:definition "The media type of the distribution as defined by IANA."@en,
+    "Tip zapisa distribucije, kot je definirano s strani organizacije IANA."@sl ;
+  vaem:rationale "Optional."@en,
+    "Opcijsko."@sl ;
+  rdfs:domain dcat:Distribution ;
+  rdfs:range dct:MediaType .
+
+dcat:packageFormat
+  a owl:ObjectProperty ;
+  rdfs:label "packaging format"@en,
+    "format paketa"@sl ;
+  skos:definition "The package format of the distribution in which one or more data files are grouped together, e.g. to enable a set of related files to be downloaded together."@en,
+    "Format paketa distribucije, v katerem je ena ali več datotek združenih skupaj, npr. da se omogoči prenos večim datotekam hkrati."@sl ;
+  vaem:rationale "Optional."@en,
+    "Opcijsko."@sl ;
+  rdfs:domain dcat:Distribution ;
+  rdfs:range dct:MediaType .
+
+dcat:spatialResolutionInMeters
+  a owl:DatatypeProperty ;
+  rdfs:label "spatial resolution (meters)"@en,
+    "prostorska resolucija (v metrih)"@sl ;
+  skos:definition "minimum spatial separation resolvable in a dataset, measured in meters."@en,
+    "Minimalna prostorska resolucija v viru, izmerjeno v metrih."@sl ;
+  vaem:rationale "Optional."@en,
+    "Opcijsko."@sl ;
+  owl:maxCardinality 1 ; 
+  rdfs:domain dcat:Dataset, dcat:Distribution ;
+  rdfs:range xsd:decimal .
+
+adms:status
+  a owl:ObjectProperty ;
+  rdfs:label "status"@en,
+    "status"@sl ;
+  skos:definition "Links to the status of the Asset or Asset Distribution in the context of a particular workflow process. Since Status is defined using a skos:Concept, that is the defined range for this property."@en,
+    "Predstavlja status vira v kontekstu določenega procesa, glede na definicijo koncepta skos:Concept."@sl ;
+  vaem:rationale "Optional (Distribution), Recommended (Catalog record)."@en,
+    "Opcijsko (Distribucija), Priporočeno (Zapis v katalogu)."@sl ;
+  rdfs:domain dcat:Distribution, dcat:CatalogRecord ;
+  rdfs:range skos:Concept .
+
+dcat:temporalResolution
+  a owl:DatatypeProperty ;
+  rdfs:label "minimum time period, resolvable in a dataset"@en,
+    "minimalno časovno okno v viru podatkov"@sl ;
+  skos:definition "Minimum time period resolvable in a dataset."@en,
+    "Minimalno časovno okno, ki ga je možno opisati v viru podatkov."@sl ;
+  vaem:rationale "Optional."@en,
+    "Opcijsko."@sl ;
+  owl:maxCardinality 1 ; 
+  rdfs:domain dcat:Dataset, dcat:Distribution ;
+  rdfs:range xsd:duration .
+
+dcat:accessService
+  a owl:ObjectProperty ;
+  rdfs:label "data access service"@en,
+    "storitev za dostop do podatkov"@sl ;
+  skos:definition "A site or end-point that gives access to the distribution of the dataset."@en,
+    "Spletišče ali vir, ki zagotavlja dostop do podatkov distribucije ali podatkovnega vira."@sl ;
+  vaem:rationale "Optional."@en,
+    "Opcijsko."@sl ;
+  rdfs:domain dcat:Distribution ;
+  rdfs:range dcat:DataService .
+
+owl:versionInfo
+  a owl:AnnotationProperty ;
+  rdfs:label "version information"@en,
+    "podatki o verziji"@sl ;
+  skos:definition "The annotation property that provides version information for an ontology or another OWL construct."@en,
+    "Označevalna lastnost, ki zagotavlja informacije o verziji."@sl ;
+  vaem:rationale "Mandatory (Dataset, UsageTool)."@en,
+    "Obvezno (Podatkovni vir, UsageTool)."@sl ;
+  owl:maxCardinality 1 ;
+  rdfs:domain dcat:Dataset, duv:UsageTool ;
+  rdfs:range rdfs:Literal .
+
+dcat:distribution
+  a owl:ObjectProperty ;
+  rdfs:label "distribution"@en,
+    "distribucija"@sl ;
+  skos:definition "An available distribution of the dataset."@en,
+    "Distribucija podatkovnega vira, ki je na voljo."@sl ;
+  vaem:rationale "Mandatory."@en,
+    "Obvezno."@sl ;
+  owl:minCardinality 1 ;
+  rdfs:domain dcat:Dataset ;
+  rdfs:range dcat:Distribution .
+
+dct:publisher
+  a owl:ObjectProperty ;
+  rdfs:label "publisher"@en,
+    "založnik"@sl ;
+  skos:definition "An entity responsible for making the resource available."@en,
+    "Entiteta, ki je zadolžena za dostopnost/objavo vira."@sl ;
+  vaem:rationale "Mandatory."@en,
+    "Obvezno."@sl ;
+  owl:minCardinality 1 ;
+  owl:maxCardinality 1 ;
+  rdfs:domain dcat:Dataset ;
+  rdfs:range foaf:Agent .
+
+pz:isHighValueDataset
+  a owl:DatatypeProperty ;
+  rdfs:label "is high value dataset"@en,
+    "ali je podatkovni vir visoke vrednosti"@sl ;
+  skos:definition "Property defines whether a dataset is of high value, according to the EU's Act that defines a list of High-Value Datasets."@en,
+    "Lastnost, ki definira, če je podatkovni vir visoke vrednosti glede na evropski pravni red, ki definira seznam podatkovnih virov visoke vrednosti."@sl ;
+  vaem:rationale "Mandatory."@en,
+    "Obvezno."@sl ;
+  owl:maxCardinality 1 ; 
+  owl:minCardinality 1 ;
+  rdfs:domain dcat:Dataset ;
+  rdfs:range xsd:boolean .
+
+pz:massDownloadEnabled
+  a owl:DatatypeProperty ;
+  rdfs:label "mass download enabled"@en,
+    "ali je masovni prenos omogočen"@sl ;
+  skos:definition "Property that defines whether a mass download is enabled for a resource."@en,
+    "Lastnost, ki definira, če je masovni prenos na voljo za izbrani vir."@sl ;
+  vaem:rationale "Mandatory."@en,
+    "Obvezno."@sl ;
+  owl:maxCardinality 1 ; 
+  owl:minCardinality 1 ;
+  rdfs:domain dcat:Dataset ;
+  rdfs:range xsd:boolean .
+
+pz:containsMunicipalityData
+  a owl:DatatypeProperty ;
+  rdfs:label "contains municipality data"@en,
+    "ali vsebuje občinske podatke"@sl ;
+  skos:definition "Property that defines whether a resource contains municipality-related data."@en,
+    "Lastnost, ki definira, če podatkovni vir vsebuje občinske podatke."@sl ;
+  vaem:rationale "Mandatory."@en,
+    "Obvezno."@sl ;
+  owl:maxCardinality 1 ; 
+  owl:minCardinality 1 ;
+  rdfs:domain dcat:Dataset ;
+  rdfs:range xsd:boolean .
+
+pz:legalGround
+  a owl:ObjectProperty ;
+  rdfs:label "legal grounds"@en,
+    "pravne podlage"@sl ;
+  skos:definition "Definition of legal grounds to publish a dataset."@en,
+    "Definicija pravnih podlag za objavo podatkovnega vira."@sl ;
+  vaem:rationale "Mandatory."@en,
+    "Obvezno."@sl ;
+  owl:minCardinality 1 ;
+  rdfs:domain dcat:Dataset ;
+  rdfs:range pz:LegalGround .
+
+dcat:keyword
+  a owl:ObjectProperty ;
+  rdfs:label "keyword"@en,
+    "ključna beseda"@sl ;
+  skos:definition "A keyword or tag describing a resource."@en,
+    "Ključna beseda ali oznaka, ki opisuje vir."@sl ;
+  vaem:rationale "Recommended."@en,
+    "Priporočeno."@sl ;
+  rdfs:domain dcat:Dataset ;
+  rdfs:range rdfs:Literal .
+
+dct:temporal
+  a owl:ObjectProperty ;
+  rdfs:label "temporal coverage"@en,
+    "časovna pokritost"@sl ;
+  skos:definition "Temporal characteristics of the resource."@en,
+    "Časovne lastnosti vira."@sl ;
+  vaem:rationale "Recommended."@en,
+    "Priporočeno."@sl ;
+  rdfs:domain dcat:Dataset ;
+  rdfs:range dct:PeriodOfTime .
+
+dcat:contactPoint
+  a owl:ObjectProperty ;
+  rdfs:label "contact point"@en,
+    "kontaktni podatki"@sl ;
+  skos:definition "Relevant contact information for the catalogued resource. Use of vCard is recommended."@en,
+    "Relevantni kontaktni podatki kataloškega podatkovnega vira. Uporaba formata vCard je priporočena."@sl ;
+  vaem:rationale "Recommended."@en,
+    "Priporočeno."@sl ;
+  rdfs:domain dcat:Dataset ;
+  rdfs:range vcard:Kind .
+
+dct:references
+  a owl:ObjectProperty ;
+  rdfs:label "references"@en,
+    "referenciranje"@sl ;
+  skos:definition "A related resource that is referenced, cited, or otherwise pointed to by the described resource."@en,
+    "Povezan vir, ki je referenciran, citiran ali kako drugače poimenovan v opisanem viru."@sl ;
+  vaem:rationale "Recommended."@en,
+    "Priporočeno."@sl ;
+  rdfs:domain dcat:Dataset ;
+  rdfs:range dcat:Dataset .
+
+dct:references
+  a owl:ObjectProperty ;
+  rdfs:label "accrual periodicity"@en,
+    "periodičnost objavljanja"@sl ;
+  skos:definition "The frequency with which items are added to a collection."@en,
+    "Frekvenca, s katero so zapisi dodajani k zbirki podatkov."@sl ;
+  vaem:rationale "Optional."@en,
+    "Opcijsko."@sl ;
+  owl:maxCardinality 1 ;
+  rdfs:domain dcat:Dataset ;
+  rdfs:range dct:Frequency .
+
+dct:provenance
+  a owl:ObjectProperty ;
+  rdfs:label "provenance"@en,
+    "izvor"@sl ;
+  skos:definition "A statement of any changes in ownership and custody of the resource since its creation that are significant for its authenticity, integrity, and interpretation."@en,
+    "Izjava o spremembah glede lastništva in skrbništva podatkovnega vira od njegovega kreiranja, ki so pomembne za avtentičnost, integriteto in interpretacijo."@sl ;
+  vaem:rationale "Optional."@en,
+    "Opcijsko."@sl ;
+  rdfs:domain dcat:Dataset ;
+  rdfs:range dct:ProvenanceStatement .
+
+prov:qualifiedAttribution
+  a owl:ObjectProperty ;
+  rdfs:label "qualified attribution"@en,
+    "kvalificiran pripis"@sl ;
+  skos:definition "Attribution is the ascribing of an entity to an agent, who generated the entity."@en,
+    "Pripis je povezovanje entitete/vira z entiteto/agentom, ki je izdelal entiteto/vir."@sl ;
+  vaem:rationale "Optional."@en,
+    "Opcijsko."@sl ;
+  rdfs:domain dcat:Dataset ;
+  rdfs:range prov:Attribution .
+
+dcat:qualifiedRelation
+  a owl:ObjectProperty ;
+  rdfs:label "qualified relation"@en,
+    "kvalificirana povezava"@sl ;
+  skos:definition "Link to a description of a relationship with another resource."@en,
+    "Povezava na opis razmerja z drugim virom."@sl ;
+  vaem:rationale "Optional."@en,
+    "Opcijsko."@sl ;
+  rdfs:domain dcat:Dataset ;
+  rdfs:range dcat:Relationship .
+
+dct:type
+  a owl:ObjectProperty ;
+  rdfs:label "type"@en,
+    "tip"@sl ;
+  skos:definition "The nature or genre of the resource."@en,
+    "Narava ali žanr vira."@sl ;
+  vaem:rationale "Optional."@en,
+    "Opcijsko."@sl ;
+  rdfs:domain dcat:Dataset, foaf:Agent ;
+  rdfs:range skos:Concept .
+
+adms:versionNotes
+  a owl:ObjectProperty ;
+  rdfs:label "version notes"@en,
+    "zapisi o verziji"@sl ;
+  skos:definition "A description of changes between this version and the previous version of the Asset."@en,
+    "Opis sprememb med trenutno in prejšnjo verzijo vira."@sl ;
+  rdfs:domain dcat:Dataset ;
+  rdfs:range rdfs:Literal .
+
+adms:identifier
+  a owl:ObjectProperty ;
+  rdfs:label "identifier"@en ;
+  rdfs:label "identifikator"@sl ;
+  skos:definition "A unique identifier of the resource."@en,
+    "Enolični identifikator vira."@sl ;
+  vaem:rationale "Optional. Harvesting also defines maxCardinality=1."@en,
+    "Opcijsko. Harvesting definira maxCardinality=1."@sl ;
+  rdfs:domain pz:Harvesting, dcat:Dataset ;
+  rdfs:range adms:Identifier .
+
+prov:wasGeneratedBy
+  a owl:ObjectProperty ;
+  rdfs:label "generated by"@en ;
+  rdfs:label "ustvarjen od"@sl ;
+  skos:definition "Generation is the completion of production of a new entity by an activity. This entity did not exist before generation and becomes available for usage after this generation."@en,
+    "Generiranje je zaključek produkcije nove entitete. Entiteta ni obstajala pred generiranjem, po njem pa postane na voljo."@sl ;
+  vaem:rationale "Optional."@en,
+    "Opcijsko."@sl ;
+  rdfs:domain dcat:Dataset ;
+  rdfs:range prov:Activity .
+
+dct:accessRights
+  a owl:ObjectProperty ;
+  rdfs:label "access rights"@en ;
+  rdfs:label "pravice dostopa"@sl ;
+  skos:definition "Information about who access the resource or an indication of its security status."@en,
+    "Podatki o dostopih do vira in indikator statusa varnosti."@sl ;
+  vaem:rationale "Optional."@en,
+    "Opcijsko."@sl ;
+  rdfs:domain dcat:Dataset, dcat:DataService ;
+  rdfs:range dct:RightsStatement .
+
+dct:source
+  a owl:ObjectProperty ;
+  rdfs:label "source"@en ;
+  rdfs:label "vir"@sl ;
+  skos:definition "A related resource from which the described resource is derived."@en,
+    "Povezan vir, iz katerega je bil opisan vir izpeljan."@sl ;
+  vaem:rationale "Optional. Domain and range types should match."@en,
+    "Opcijsko. Domain and range types should match."@sl ;
+  rdfs:domain dcat:Dataset, dcat:CatalogRecord ;
+  rdfs:range dcat:Dataset, dcat:CatalogRecord .
+
+adms:sample
+  a owl:ObjectProperty ;
+  rdfs:label "sample"@en,
+    "vzorec"@sl ;
+  skos:definition "Links to a sample of an Asset (which is itself an Asset)."@en,
+    "Povezava na vzorec vira (ki je hkrati tudi sam po sebi vir)."@sl ;
+  vaem:rationale "Optional."@en,
+    "Opcijsko."@sl ;
+  rdfs:domain dcat:Dataset ;
+  rdfs:range dcat:Dataset .
+
+dct:hasVersion
+  a owl:ObjectProperty ;
+  rdfs:label "has version"@en,
+    "ima verzijo"@sl ;
+  skos:definition "A related resource that is a version, edition, or adaptation of the described resource."@en,
+    "Povezan vir, ki je verzija, izdaja ali prilagoditev opisanega vira."@sl ;
+  vaem:rationale "Optional."@en,
+    "Opcijsko."@sl ;
+  rdfs:domain dcat:Dataset ;
+  rdfs:range dcat:Dataset .
+
+dct:isVersionOf
+  a owl:ObjectProperty ;
+  rdfs:label "is version of"@en,
+    "je verzija"@sl ;
+  skos:definition "A related resource of which the described resource is a version, edition, or adaptation."@en,
+    "Povezan vir, ki je verzija, izdaja ali prilagoditev opisanega vira."@sl ;
+  vaem:rationale "Optional."@en,
+    "Opcijsko."@sl ;
+  rdfs:domain dcat:Dataset ;
+  rdfs:range dcat:Dataset .
+
+dqv:hasQualityMeasurement
+  a owl:ObjectProperty ;
+  rdfs:label "has quality measurement"@en,
+    "ima mero kakovosti"@sl ;
+  skos:definition "Refers to the performed quality measurements. Quality measurements can be performed to any kind of resource (e.g., a dataset, a linkset, a graph, a set of triples). However, in the DQV context, this property is generally expected to be used in statements in which subjects are instances of dcat:Dataset or dcat:Distribution."@en,
+    "Lastnost se nanaša na izvedeno merjenje kvalitete. Merjenje kvalitete se lahko meri za katerikoli vir (npr. podatkovni vir, povezan seznam, graf, seznam trojic). Kljub temu je v okviru DQV ta lastnost načeloma pričakovana za uporabo, ko so subjekti primerki konceptov dcat:Dataset ali dcat:Distribution."@sl ;
+  vaem:rationale "Optional."@en,
+    "Opcijsko."@sl ;
+  rdfs:domain dcat:Dataset ;
+  rdfs:range dqv:QualityMeasurement .
+
+dcat:bbox
+  a owl:ObjectProperty ;
+  rdfs:label "bounding box"@en,
+    "omejeno področje"@sl ;
+  skos:definition "The geographic bounding box of a resource."@en,
+    "Geografsko omejeno področje vira."@sl ;
+  vaem:rationale "Recommended."@en,
+    "Priporočeno."@sl ;
+  owl:maxCardinality 1 ;
+  rdfs:domain dct:location ;
+  rdfs:range rdfs:Literal .
+
+dcat:centroid
+  a owl:ObjectProperty ;
+  rdfs:label "centroid"@en,
+    "centroid"@sl ;
+  skos:definition "The geographic center (centroid) of a resource."@en,
+    "Geografski center (centroid) vira."@sl ;
+  vaem:rationale "Recommended."@en,
+    "Priporočeno."@sl ;
+  owl:maxCardinality 1 ;
+  rdfs:domain dct:Location ;
+  rdfs:range rdfs:Literal .
+
+locn:geometry
+  a owl:ObjectProperty ;
+  rdfs:label "geometry"@en,
+    "geometrija"@sl ;
+  skos:definition "Associates any Resource with the corresponding Geometry."@en,
+    "Povezuje katerikoli vir s pripadajočo geometrijo."@sl ;
+  vaem:rationale "Optional."@en,
+    "Opcijsko."@sl ;
+  owl:maxCardinality 1 ;
+  rdfs:domain dct:Location ;
+  rdfs:range rdfs:Literal .
+
+skos:notation
+  a owl:ObjectProperty ;
+  rdfs:label "notation"@en,
+    "notacija"@sl ;
+  skos:definition "A notation is different from a lexical label in that a notation is not normally recognizable as a word or sequence of words in any natural language."@en,
+    "Notacija je drugačna od leksikalne oznake na način, da notacija ni splošno prepoznana kot beseda ali zaporedje besed v kateremkoli od naravnih jezikov."@sl ;
+  vaem:rationale "Mandatory."@en,
+    "Obvezno."@sl ;
+  owl:maxCardinality 1 ;
+  owl:minCardinality 1 ;
+  rdfs:domain adms:Identifier ;
+  rdfs:range rdfs:Resource .
+
+skos:inScheme
+  a owl:ObjectProperty ;
+  rdfs:label "is in scheme"@en,
+    "je v shemi"@sl ;
+  skos:definition "Relates a resource (for example a concept) to a concept scheme in which it is included."@en,
+    "Povezuje vir (npr. koncept) s shemo konceptov, v kateri je vsebovan."@sl ;
+  vaem:rationale "Mandatory."@en,
+    "Obvezno."@sl ;
+  owl:maxCardinality 1 ;
+  owl:minCardinality 1 ;
+  rdfs:domain pz:Object ;
+  rdfs:range csvw:Table .
+
+pz:inDistribution
+  a owl:ObjectProperty ;
+  rdfs:label "is part of distribution"@en,
+    "je del distribucije"@sl ;
+  skos:definition "Relates an instance to a distribution."@en,
+    "Povezuje primerek z distribucijo."@sl ;
+  vaem:rationale "Mandatory."@en,
+    "Obvezno."@sl ;
+  owl:maxCardinality 1 ;
+  owl:minCardinality 1 ;
+  rdfs:domain pz:Object ;
+  rdfs:range dcat:Distribution .
+
+pz:schema
+  a owl:ObjectProperty ;
+  rdfs:label "uses scheme"@en,
+    "uporablja shemo"@sl ;
+  skos:definition "Defines a schema that is used by a distribution."@en,
+    "Definira shemo, ki jo uporablja specifična distribucija."@sl ;
+  vaem:rationale "Mandatory."@en,
+    "Obvezno."@sl ;
+  owl:maxCardinality 1 ;
+  owl:minCardinality 1 ;
+  rdfs:domain dcat:Distribution ;
+  rdfs:range csvw:Table .
+
+# TODO: check real definition as it does not work correctly for documentation generation.
+#foaf:name
+#  a owl:ObjectProperty ;
+#  rdfs:label "name"@en,
+#    "ime"@sl ;
+#  skos:definition "A name for some thing."@en,
+#    "Ime za neko stvar."@sl ;
+#  vaem:rationale "Mandatory."@en,
+#    "Obvezno."@sl ;
+#  owl:minCardinality 1 ;
+#  rdfs:domain foaf:Agent ;
+#  rdfs:range rdfs:Literal .
+
+skos:prefLabel
+  a owl:ObjectProperty ;
+  rdfs:label "preferred label"@en,
+    "priporočena oznaka"@sl ;
+  skos:definition "The preferred labels are useful when generating or creating human-readable representations of a knowledge organization system. These labels provide the strongest clues as to the meaning of a SKOS concept."@en,
+    "Priporočene oznake so uporabne, ko se generira ali izdeluje človeku razumljive predstavitve organizacij znanja. Te oznake zagotavljajo najbolj smiseln opis pomena konceptov SKOS."@sl ;
+  vaem:rationale "Mandatory."@en,
+    "Obvezno."@sl ;
+  owl:minCardinality 1 ;
+  rdfs:domain skos:Concept, dqv:Dimension ;
+  rdfs:range rdfs:Literal .
+
+foaf:primaryTopic
+  a owl:ObjectProperty ;
+  rdfs:label "primary topic"@en,
+    "primarna tematika"@sl ;
+  skos:definition "The primary topic of some page or document. "@en,
+    "Primarna tematika neke strani ali dokumenta."@sl ;
+  vaem:rationale "Mandatory."@en,
+    "Obvezno."@sl ;
+  owl:minCardinality 1 ;
+  owl:maxCardinality 1 ;
+  rdfs:domain dcat:CatalogRecord ;
+  rdfs:range dcat:Dataset .
+
+dcat:endpointURL
+  a owl:ObjectProperty ;
+  rdfs:label "service endpoint"@en,
+    "naslov storitve"@sl ;
+  skos:definition "The root location or primary endpoint of the service (a web-resolvable IRI)."@en,
+    "Korenska lokacija ali primarni naslov storitve (spletno dostopen IRI)."@sl ;
+  vaem:rationale "Mandatory."@en,
+    "Obvezno."@sl ;
+  owl:minCardinality 1 ;
+  rdfs:domain dcat:DataService ;
+  rdfs:range dcat:Dataset .
+
+dcat:endpointDescription
+  a owl:ObjectProperty ;
+  rdfs:label "description of service end-point"@en,
+    "opis naslova storitve"@sl ;
+  skos:definition "A description of the service end-point, including its operations, parameters etc."@en,
+    "Opis naslova storitve, vključno z njenimi operacijami, parametri, ipd."@sl ;
+  vaem:rationale "Recommended."@en,
+    "Priporočeno."@sl ;
+  rdfs:domain dcat:DataService ;
+  rdfs:range dcat:Resource .
+
+dcat:servesDataset
+  a owl:ObjectProperty ;
+  rdfs:label "serves dataset"@en,
+    "ponuja podatkovni vir"@sl ;
+  skos:definition "A collection of data that this DataService can distribute."@en,
+    "Zbirka podatkov, ki jih opisana podatkovna storitev lahko distribuira."@sl ;
+  vaem:rationale "Recommended."@en,
+    "Priporočeno."@sl ;
+  rdfs:domain dcat:DataService ;
+  rdfs:range dcat:Dataset .
+
+pz:legalNoSOP
+  a owl:ObjectProperty ;
+  rdfs:label "legal ground non-SOP"@en,
+    "pravna podlaga brez SOP"@sl ;
+  skos:definition "Legal ground without having a SOP number."@en,
+    "Pravna podlaga brez številke SOP."@sl ;
+  vaem:rationale "Recommended."@en,
+    "Priporočeno."@sl ;
+  rdfs:domain pz:LegalGround ;
+  rdfs:range rdfs:Literal .
+
+pz:legalSOP
+  a owl:ObjectProperty ;
+  rdfs:label "legal ground SOP"@en,
+    "pravna podlaga SOP"@sl ;
+  skos:definition "Legal ground having a SOP number."@en,
+    "Pravna podlaga s številko SOP."@sl ;
+  vaem:rationale "Recommended."@en,
+    "Priporočeno."@sl ;
+  rdfs:domain pz:LegalGround ;
+  rdfs:range rdfs:Literal .
+
+dqv:value
+  a owl:ObjectProperty ;
+  rdfs:label "evaluation value"@en,
+    "evalvacijska vrednost"@sl ;
+  skos:definition "Refers to values computed by metric."@en,
+    "Nanašanje na vrednosti, ki so bile izračunanje glede na metriko."@sl ;
+  vaem:rationale "Mandatory."@en,
+    "Obvezno."@sl ;
+  owl:minCardinality 1 ;
+  owl:maxCardinality 1 ;
+  rdfs:domain dqv:QualityMeasurement ;
+  rdfs:range rdfs:Literal .
+
+dqv:computedOn
+  a owl:ObjectProperty ;
+  rdfs:label "computed on"@en,
+    "izračunano na"@sl ;
+  skos:definition "Refers to the resource (e.g., a dataset, a linkset, a graph, a set of triples) on which the quality measurement is performed. In the DQV context, this property is generally expected to be used in statements in which objects are instances of dcat:Dataset or dcat:Distribution."@en,
+    "Nanašanje na vir (npr. podatkovni vir, povezan seznam podatkov, graf ali seznam trojic), na katerij se izvaja merjenje kvalitete. V kontekstu DQV je ta lastnost načeloma uporabljena nad primerki dcat:Dataset ali dcat:Distribution."@sl ;
+  vaem:rationale "Mandatory."@en,
+    "Obvezno."@sl ;
+  owl:minCardinality 1 ;
+  owl:maxCardinality 1 ;
+  rdfs:domain dqv:QualityMeasurement ;
+  rdfs:range rdfs:Resource .
+
+dqv:isMeasurementOf
+  a owl:ObjectProperty ;
+  rdfs:label "measurement of"@en,
+    "meritev"@sl ;
+  skos:definition "Indicates the metric being observed."@en,
+    "Označuje opazovano metriko."@sl ;
+  vaem:rationale "Mandatory."@en,
+    "Obvezno."@sl ;
+  owl:minCardinality 1 ;
+  owl:maxCardinality 1 ;
+  rdfs:domain dqv:QualityMeasurement ;
+  rdfs:range dqv:Metric .
+
+# TODO: enako kot za foaf:name
+#skos:definition
+#  a owl:DatatypeProperty ;
+#  rdfs:label "definition"@en,
+#    "definicija"@sl ;
+#  skos:definition "Notes are used to provide information relating to #SKOS concepts."@en,
+#    "Zapisi so uporabljeni za zagotovitev podatkov glede na koncepte #SKOS."@sl ;
+#  vaem:rationale "Mandatory."@en,
+#    "Obvezno."@sl ;
+#  owl:minCardinality 1 ;
+#  rdfs:domain dqv:Metric, dqv:Dimension ;
+#  rdfs:range xsd:string .
+
+# TODO: enako kot za foaf:name
+#dct:created
+#  a owl:DatatypeProperty ;
+#  rdfs:label "date created"@en,
+#    "datum izdelave"@sl ;
+#  skos:definition "Date of creation of the resource."@en,
+#    "Datum izdelave resursa."@sl ;
+#  vaem:rationale "Mandatory (Usage), Recommended (UsageTool)."@en,
+#    "Obvezno (Uporaba), Priporočeno (Orodje uporabe)."@sl ;
+#  owl:minCardinality 1 ;
+#  rdfs:domain duv:Usage, duv:UsageTool ;
+#  rdfs:range xsd:dateTime .
+
+
+dqv:inDimension
+  a owl:ObjectProperty ;
+  rdfs:label "in dimension"@en,
+    "v dimenziji"@sl ;
+  skos:definition "Represents the dimensions a quality metric, certificate and annotation allow a measurement of."@en,
+    "Predstavlja dimenzijo, ki jih kvalitativna metrika, certifikat in oznaka dovoljujejo izmeriti."@sl ;
+  vaem:rationale "Mandatory."@en,
+    "Obvezno."@sl ;
+  owl:minCardinality 1 ;
+  owl:maxCardinality 1 ;
+  rdfs:domain dqv:Metric ;
+  rdfs:range dqv:Dimension .
+
+dqv:expectedDataType
+  a owl:ObjectProperty ;
+  rdfs:label "expected data type"@en,
+    "pričakovan podatkovni tip"@sl ;
+  skos:definition "Represents the expected data type for the metric's observed value (e.g., xsd:boolean, xsd:double etc...)"@en,
+    "Predstavlja pričakovan podatkovni tip za opazovano vrednost metrike (npr. xsd:boolean, xsd:double, ipd.)."@sl ;
+  vaem:rationale "Recommended."@en,
+    "Priporočeno."@sl ;
+  rdfs:domain dqv:Metric ;
+  rdfs:range rdfs:Datatype .
+
+prov:wasDerivedFrom
+  a owl:ObjectProperty ;
+  rdfs:label "was derived from"@en,
+    "pričakovan podatkovni tip"@sl ;
+  skos:definition "A derivation is a transformation of an entity into another, an update of an entity resulting in a new one, or the construction of a new entity based on a pre-existing entity."@en,
+    "Izpeljava je transformacija entitete v drugo, posodobitev entitete, s čimer se izdela nova, ali konstrukcija nove entitete na podlagi obstoječe."@sl ;
+  vaem:rationale "Recommended."@en,
+    "Priporočeno."@sl ;
+  rdfs:domain dqv:Metric ;
+  rdfs:range dct:Standard .
+
+dqv:inCategory
+  a owl:ObjectProperty ;
+  rdfs:label "in category"@en,
+    "v kategoriji"@sl ;
+  skos:definition "Represents the category a dimension is grouped in."@en,
+    "Predstavlja kategorijo, v katero spada dimenzija."@sl ;
+  vaem:rationale "Recommended."@en,
+    "Priporočeno."@sl ;
+  rdfs:domain dqv:Dimension ;
+  rdfs:range dqv:Category .
+
+duv:hasUsageTool
+  a owl:ObjectProperty ;
+  rdfs:label "has usage tool"@en,
+    "ima orodje uporabe"@sl ;
+  skos:definition "A usage tool (application, service) referred to by usage guidance/instructions."@en,
+    "Orodje uporabe (aplikacija, storitev), ki so je referencira v smernicah/navodilih."@sl ;
+  vaem:rationale "Mandatory."@en,
+    "Obvezno."@sl ;
+  rdfs:domain duv:Usage ;
+  rdfs:range duv:UsageTool .
+
+csvw:column
+  a owl:ObjectProperty ;
+  rdfs:label "column"@en,
+    "stolpec"@sl ;
+  skos:definition "An array property of column descriptions as described in section 5.6 Columns."@en,
+    "Lastnost v obliki tabele, ki vsebuje opise stolpcev, kot je opisano v razdelku 5.6 Columns."@sl ;
+  vaem:rationale "Mandatory."@en,
+    "Obvezno."@sl ;
+  owl:minCardinality 1 ;
+  rdfs:domain csvw:Schema ;
+  rdfs:range csvw:Column .
+
+csvw:primaryKey
+  a owl:ObjectProperty ;
+  rdfs:label "primary key"@en,
+    "primarni ključ"@sl ;
+  skos:definition "A column reference property that holds either a single reference to a column description object or an array of references."@en,
+    "Referenčna lastnost stolpca, ki je lahko ena referenca ali seznam referenc."@sl ;
+  vaem:rationale "Recommended."@en,
+    "Priporočeno."@sl ;
+  owl:maxCardinality 1 ;
+  rdfs:domain csvw:Schema ;
+  rdfs:range xsd:string .
+
+csvw:datatype
+  a owl:ObjectProperty ;
+  rdfs:label "data type"@en,
+    "podatkovni tip"@sl ;
+  skos:definition "An object property that contains either a single string that is the main datatype of the values of the cell or a datatype description object. If the value of this property is a string, it MUST be one of the built-in datatypes defined in section 5.11.1 Built-in Datatypes or an absolute URL; if it is an object then it describes a more specialised datatype."@en,
+    "Objektna lastnost, ki vsebuje en niz, ki je glavni podatkovni tip vrednosti celic ali opisni objekt podatkovnih tipov. Če je vrednost tega tipa niz, mora biti eden izmed vgrajenih podatkovnih tipov iz razdelka 5.11.1 Built-in Datatypes or an absolute URL.Če je objekt, potem opisuje bolj specifičen podatkovni tip."@sl ;
+  vaem:rationale "Recommended (Schema), Mandatory (Column)."@en,
+    "Priporočeno (Shema), Obvezno (Stolpec)."@sl ;
+  rdfs:domain csvw:Schema, csvw:Column ;
+  rdfs:range csvw:Datatype, xsd:string .
+
+csvw:required
+  a owl:ObjectProperty ;
+  rdfs:label "required"@en,
+    "obvezen"@sl ;
+  skos:definition "A boolean atomic property taking a single value which indicates whether the cell must have a non-null value. The default is `false`."@en,
+    "Atomarna lastnost, ki sprejme eno vrednost in definira, če ima lahko celica prazno vrednost. Privzeta vrednost je `false`."@sl ;
+  vaem:rationale "Recommended (Schema), Mandatory (Column)."@en,
+    "Priporočeno (Shema), Obvezno (Stolpec)."@sl ;
+  owl:maxCardinality 1 ;
+  rdfs:domain csvw:Schema, csvw:Column ;
+  rdfs:range xsd:boolean .
+
+csvw:separator
+  a owl:ObjectProperty ;
+  rdfs:label "separator"@en,
+    "ločnica"@sl ;
+  skos:definition "An atomic property that MUST have a single string value that is the character used to separate items in the string value of the cell."@en,
+    "Atomarna lastnost, ki mora biti en niz, t.j. znak, ki je uporabljen za ločevanje elementov v znakovni predstavitvi celice."@sl ;
+  vaem:rationale "Recommended (Schema), Optional (Column)."@en,
+    "Priporočeno (Shema), Opcijsko (Stolpec)."@sl ;
+  owl:maxCardinality 1 ;
+  rdfs:domain csvw:Schema, csvw:Column ;
+  rdfs:range xsd:string .
+
+csvw:aboutUrl
+  a owl:ObjectProperty ;
+  rdfs:label "about URL"@en,
+    "naslov z opisom"@sl ;
+  skos:definition "A URI template property that MAY be used to indicate what a cell contains information about."@en,
+    "Predloga URI, ki je lahko uporabljena za definicijo, podatke o čem vsebuje celica."@sl ;
+  vaem:rationale "Recommended."@en,
+    "Priporočeno."@sl ;
+  rdfs:domain csvw:Schema, csvw:Column ;
+  rdfs:range csvw:uriTemplate .
+
+csvw:rowTitle
+  a owl:ObjectProperty ;
+  rdfs:label "row titles"@en,
+    "naslovi vrstic"@sl ;
+  skos:definition "A column reference property that holds either a single reference to a column description object or an array of references."@en,
+    "Referenčna lastnost stolpca, ki lahko vsebuje eno referenco na opis stolpca ali seznam referenc."@sl ;
+  vaem:rationale "Optional."@en,
+    "Opcijsko."@sl ;
+  rdfs:domain csvw:Schema ;
+  rdfs:range xsd:string .
+
+csvw:foreignKey
+  a owl:ObjectProperty ;
+  rdfs:label "foreign key"@en,
+    "tuji ključ"@sl ;
+  skos:definition "An array property of foreign key definitions that define how the values from specified columns within this table link to rows within this table or other tables."@en,
+    "Lastnost v obliki seznama, ki vsebuje definicije tujih ključev - kako se vrednosti iz definiranih stolpcev povezujejo z drugimi tabelami."@sl ;
+  vaem:rationale "Optional."@en,
+    "Opcijsko."@sl ;
+  rdfs:domain csvw:Schema ;
+  rdfs:range csvw:ForeignKey .
+
+csvw:default
+  a owl:ObjectProperty ;
+  rdfs:label "default"@en,
+    "privzeta vrednost"@sl ;
+  skos:definition "An atomic property holding a single string that is used to create a default value for the cell in cases where the original string value is an empty string."@en,
+    "Atomarna lastnost, ki hrani en niz, ki se uporablja kot privzeta vrednost, če je originalna vrednost prazen niz."@sl ;
+  vaem:rationale "Optional."@en,
+    "Opcijsko."@sl ;
+  rdfs:domain csvw:Schema, csvw:Column ;
+  rdfs:range xsd:string .
+
+csvw:lang
+  a owl:ObjectProperty ;
+  rdfs:label "language"@en,
+    "jezik"@sl ;
+  skos:definition "An atomic property giving a single string language code as defined by [BCP47]."@en,
+    "Atomarna lastnost, ki nizom priredi jezikovno oznako v skladu z [BCP47]."@sl ;
+  vaem:rationale "Optional."@en,
+    "Opcijsko."@sl ;
+  rdfs:domain csvw:Schema, csvw:Column ;
+  rdfs:range xsd:string .
+
+csvw:null
+  a owl:ObjectProperty ;
+  rdfs:label "null"@en,
+    "brez vrednosti / nič"@sl ;
+  skos:definition "An atomic property giving the string or strings used for null values within the data. If the string value of the cell is equal to any one of these values, the cell value is `null`."@en,
+    "Atomarna lastnost, ki izbranemu nizu ali več nizom priredi `null` vrednost, če se ujejamo z vrednostmi v tabeli."@sl ;
+  vaem:rationale "Optional."@en,
+    "Opcijsko."@sl ;
+  rdfs:domain csvw:Schema, csvw:Column ;
+  rdfs:range xsd:string .
+
+csvw:ordered
+  a owl:ObjectProperty ;
+  rdfs:label "ordered"@en,
+    "urejen"@sl ;
+  skos:definition "A boolean atomic property taking a single value which indicates whether a list that is the value of the cell is ordered (if `true`) or unordered (if `false`)."@en,
+    "Atomarna logična lastnost, ki prejme eno vrednost in vrne, če je vrednost v celici urejena ali ne."@sl ;
+  vaem:rationale "Optional."@en,
+    "Opcijsko."@sl ;
+  rdfs:domain csvw:Schema, csvw:Column ;
+  rdfs:range xsd:boolean .
+
+csvw:propertyUrl
+  a owl:ObjectProperty ;
+  rdfs:label "property URL"@en,
+    "URL lastnosti"@sl ;
+  skos:definition "An URI template property that MAY be used to create a URI for a property if the table is mapped to another format."@en,
+    "Lastnost predloge URI, ki je lahko uporabljena za kreiranje URI-ja za lastnosti, če je tabela pretvorjena v drug format."@sl ;
+  vaem:rationale "Optional."@en,
+    "Opcijsko."@sl ;
+  rdfs:domain csvw:Schema, csvw:Column ;
+  rdfs:range csvw:uriTemplate .
+
+csvw:transformations
+  a owl:ObjectProperty ;
+  rdfs:label "transformations"@en,
+    "pretvorbe"@sl ;
+  skos:definition "An array property of transformation definitions that provide mechanisms to transform the tabular data into other formats."@en,
+    "Lastnost, ki vsebuje seznam definicij za pretvorbe, da se lahko iz enega tabelaričnega formata pretvori v drug format."@sl ;
+  vaem:rationale "Optional."@en,
+    "Opcijsko."@sl ;
+  rdfs:domain csvw:Schema, csvw:Column ;
+  rdfs:range csvw:Transformation .
+
+csvw:textDirection
+  a owl:ObjectProperty ;
+  rdfs:label "text direction"@en,
+    "smer besedila"@sl ;
+  skos:definition "An atomic property that must have a single value that is one of `rtl` or `ltr` (the default)."@en,
+    "Atomarna lastnost, ki mora imeti eno vrednost - `rtl` ali `ltr` (privzeto)."@sl ;
+  vaem:rationale "Optional."@en,
+    "Opcijsko."@sl ;
+  rdfs:domain csvw:Schema, csvw:Column ;
+  rdfs:range csvw:TextDirection .
+
+csvw:valueUrl
+  a owl:ObjectProperty ;
+  rdfs:label "value Url"@en,
+    "vrednost URL"@sl ;
+  skos:definition "An URI template property that is used to map the values of cells into URLs."@en,
+    "Lastnost predloge naslova URL, ki se uporablja za pretvorbo vrednosti celic v naslove URL."@sl ;
+  vaem:rationale "Optional."@en,
+    "Opcijsko."@sl ;
+  rdfs:domain csvw:Schema, csvw:Column ;
+  rdfs:range csvw:uriTemplate .
+
+csvw:name
+  a owl:ObjectProperty ;
+  rdfs:label "name"@en,
+    "ime stolpca"@sl ;
+  skos:definition "An atomic property that gives a single canonical name for the column. The value of this property becomes the name annotation for the described column."@en,
+    "Lastnost, ki poda eno kanonično ime za stolpec. Vrednost te lastnosti postane oznaka imena za opisan stolpec."@sl ;
+  vaem:rationale "Mandatory."@en,
+    "Obvezno."@sl ;
+  rdfs:domain csvw:Column ;
+  rdfs:range xsd:string .
+
+csvw:title
+  a owl:ObjectProperty ;
+  rdfs:label "title"@en,
+    "naslov"@sl ;
+  skos:definition "A natural language property that provides possible alternative names for the column."@en,
+    "Lastnost, ki definira možna alternativna imena za stolpec."@sl ;
+  vaem:rationale "Mandatory."@en,
+    "Obvezno."@sl ;
+  rdfs:domain csvw:Column ;
+  rdfs:range xsd:string .
+
+csvw:suppressOutput
+  a owl:ObjectProperty ;
+  rdfs:label "suppress output"@en,
+    "ignoriraj izpis"@sl ;
+  skos:definition "A boolean atomic property. If `true`, suppresses any output that would be generated when converting a table or cells within a column."@en,
+    "Če je vrednost `true,` potem se ignorira izpise med pretvorbo tabele ali celic v izbranem stolpcu."@sl ;
+  vaem:rationale "Optional."@en,
+    "Opcijsko."@sl ;
+  rdfs:domain csvw:Column ;
+  rdfs:range xsd:boolean .
+
+csvw:virtual
+  a owl:ObjectProperty ;
+  rdfs:label "virtual"@en,
+    "navidezen"@sl ;
+  skos:definition "A boolean atomic property taking a single value which indicates whether the column is a virtual column not present in the original source."@en,
+    "Indikator, če je stolpec navideden, torej ni vsebovan v originalnem viru."@sl ;
+  vaem:rationale "Optional."@en,
+    "Opcijsko."@sl ;
+  rdfs:domain csvw:Column ;
+  rdfs:range xsd:boolean .
+
+prov:actedOnBehalfOf
+  a owl:ObjectProperty ;
+  rdfs:label "acted on behalf of"@en,
+    "deloval v imenu"@sl ;
+  rdfs:domain foaf:Organization, prov:Agent ;
+  rdfs:range foaf:Organization, prov:Agent .
+
+dct:identifier
+  a owl:DatatypeProperty ;
+  rdfs:label "identifier"@en,
+    "identifikator"@sl ;
+  skos:definition "An unambiguous reference to the resource within a given context."@en,
+    "Nedvoumno sklicevanje na vir v danem kontekstu."@sl ;
+  rdfs:domain dcat:Dataset ;
+  rdfs:range xsd:string .
+
+owl:versionInfo 
+  a owl:DatatypeProperty ;
+  rdfs:label "version"@en, 
+    "verzija"@sl ;
+  rdfs:domain dcat:Dataset ;
+  rdfs:range xsd:string .
+
+vcard:fn 
+  a owl:DatatypeProperty ;
+  rdfs:label "formatted name"@en, "formatirano ime"@sl ;
+  rdfs:domain vcard:Kind ;
+  rdfs:range xsd:string .
+
+foaf:name 
+  a owl:DatatypeProperty ;
+  rdfs:label "name"@en , "ime"@sl ;
+  rdfs:domain foaf:Agent , foaf:Organization ;
+  rdfs:range xsd:string .
+
+vcard:hasEmail 
+  a owl:ObjectProperty ;
+  rdfs:label "has email"@en, "ima elektronski naslov"@sl ;
+  rdfs:domain vcard:Kind ;
+  rdfs:range rdfs:Resource .
+
+csvw:columns
+  a owl:ObjectProperty ;
+  rdfs:label "columns"@en ,
+    "stolpci"@sl ;
+  rdfs:domain csvw:Schema ;
+  rdfs:range csvw:Column .
+
+foaf:mbox 
+  a owl:ObjectProperty ;
+  rdfs:label "mailbox"@en , "poštni predal"@sl ;
+  skos:definition "A personal mailbox, ie. an Internet mailbox associated with exactly one owner, the first owner of this mailbox."@en ;
+  rdfs:domain foaf:Agent , foaf:Organization ;
+  rdfs:range rdfs:Resource .
+
+skos:example 
+  a owl:DatatypeProperty ;
+  rdfs:label "example"@en , "primer"@sl ;
+  rdfs:domain csvw:Column ;
+  rdfs:range xsd:string .

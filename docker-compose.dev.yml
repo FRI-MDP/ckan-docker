@@ -8,6 +8,7 @@ volumes:
 services:
 
   ckan-dev:
+    platform: linux/amd64
     container_name: ${CKAN_CONTAINER_NAME}
     build:
       context: ckan/
@@ -74,6 +75,7 @@ services:
       test: ["CMD", "pg_isready", "-U", "${POSTGRES_USER}", "-d", "${POSTGRES_DB}"]
      
   solr:
+    platform: linux/amd64
     container_name: ${SOLR_CONTAINER_NAME}
     image: ckan/ckan-solr:${SOLR_IMAGE_VERSION}
     volumes:
@@ -88,3 +90,17 @@ services:
     restart: unless-stopped
     healthcheck:
       test: ["CMD", "redis-cli", "-e", "QUIT"]
+
+  fuseki:
+    container_name: fuseki
+    image: secoresearch/fuseki
+    ports:
+      - "3030:3030"
+    environment:
+      - ADMIN_PASSWORD=pz
+      - ENABLE_DATA_WRITE=true
+      - ENABLE_UPDATE=true
+      - ENABLE_UPLOAD=true
+    volumes:
+      - ./volumes/fuseki/configuration:/fuseki-base/configuration/
+      - ./volumes/fuseki/databases:/fuseki-base/databases/

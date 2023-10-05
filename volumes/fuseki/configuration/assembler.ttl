@@ -1,0 +1,29 @@
+@prefix fuseki:  <http://jena.apache.org/fuseki#> .
+@prefix rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix ja:      <http://jena.hpl.hp.com/2005/11/Assembler#> .
+@prefix :        <#> .
+
+<#pz-service> rdf:type fuseki:Service ;
+  fuseki:name      "/pz" ;
+  fuseki:endpoint  [ fuseki:operation fuseki:query ; fuseki:name "sparql" ];
+  fuseki:endpoint  [ fuseki:operation fuseki:query ; fuseki:name "query" ];
+  fuseki:endpoint  [ fuseki:operation fuseki:gsp_rw ; fuseki:name "data" ];
+  fuseki:endpoint  [ fuseki:operation fuseki:update ; fuseki:name "update" ];
+  fuseki:dataset   <#pz-dataset> ;
+  .
+
+<#pz-dataset> rdf:type ja:RDFDataset ;
+  ja:defaultGraph <#pz-schema-graph> ;
+  ja:namedGraph [
+    ja:graphName  <http://onto.mju.gov.si/pz/dataset/erar-evidenca-davcnih-dolznikov-in-nepredlagateljev-davcnih-obracunov> ;
+    ja:graph      <#pz-evidenca-dolznikov-in-nepredlagateljev-graph>
+  ]
+  .
+
+<#pz-schema-graph> a ja:MemoryModel ;
+  ja:content [ ja:externalContent <file:../databases/pz.ttl> ] ;
+  .
+
+<#pz-evidenca-dolznikov-in-nepredlagateljev-graph> a ja:MemoryModel ;
+  ja:content [ ja:externalContent <file:../databases/evidenca_dolznikov_in_nepredlagateljev_kpk.ttl> ] ;
+  .
