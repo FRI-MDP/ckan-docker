@@ -5,7 +5,7 @@
 
 - DataPusher
     - resubmit jobs: `docker exec -i ckan /usr/bin/ckan -c /srv/app/ckan.ini datapusher resubmit`
-    - build image: `docker build -f datapusher/Dockerfile.official-git -t semantic-datapusher .`
+    - build image: `docker build -f datapusher/Dockerfile.fri-mdp-git -t semantic-datapusher .`
     - build image from dev compose: `docker compose -f docker-compose.dev.yml build datapusher --no-cache`
 
 - Default credentials:

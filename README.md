@@ -1,4 +1,104 @@
-# Docker Compose setup for CKAN
+# Docker Compose setup for CKAN with Semantic DataPusher
+
+* [User perspective](#user-perspective)
+   * [Global level](#global-level)
+   * [Local level](#local-level)
+   * [Adding a new dataset](#adding-a-new-dataset)
+* [Developer perspective](#developer-perspective)
+
+This repository is a fork of original Docker Compose setup for CKAN (original documentation is preserved below) that adds functionality to support semantic data map within an CKAN instance.
+
+Current implementation is based on DCAT and other ontologies, applied to the Slovenian data map ontology. For more information about the project please see the main repository [https://github.com/FRI-MDP/Podatkovni-zemljevid-2023](https://github.com/FRI-MDP/Podatkovni-zemljevid-2023) or contact [Ministry of Digital Transformation of the Republic of Slovenia](https://www.gov.si/en/state-authorities/ministries/ministry-of-digital-transformation/), contact person Miha Jesenko. Project was designed and developed by Dejan Lavbič and Slavko Žitnik.
+
+Figure below shows a high-level architecture usage of a semantic data pusher. 
+![](images/semantic.png)
+Figure: Architecture of updated CKAN to support semantic data map functionality.
+
+## User perspective
+
+The semantic DataPusher and Data map visualization enables two separate views - global and local. All the semantic resources are stored in Fuseki which is used as a resource for visualization.
+
+### Global level
+
+On a global level a data map visualization in shown in a CKAN landing page. Here, user can see all the resources, metadata of fields and connections between them.
+
+![](global.png)
+Figure 1: Global level - CKAN landing page.
+
+### Local level
+
+Local level visualization is used to visualize specific distribution schema and data.
+
+![](local.png)
+Figure 2: Local level - viewing resource of a specific distribution.
+
+### Adding a new dataset
+
+**Step 1**: Adding a new dataset.
+
+![](step1.png)
+Figure 3: Adding a new dataset form.
+
+
+![](step2.png)
+Figure 4: Setting all the relevant data (can be defined differently for each CKAN instance).
+
+
+![](step3.png)
+Figure 5: Adding two additional parameters for the Semantic DataPusher (can also be integrated into the form).
+
+**Step 2**: Adding a new distribution.
+
+![](step4.png)
+Figure 6: Uploading a distribution file and setting general metadata.
+
+
+![](step5.png)
+Figure 7: Distribution uploaded.
+
+After a distribution is changed, DataPusher is automatically run. Semantic DataPusher adds some additional logs where it can be checked whether semantic triples were created and stored into Fuseki.
+
+![](step6.png)
+Figure 8: DataPusher running log.
+
+**Step 3**: Creating a new view. Semantic data map is a standalone client component. Therefore *webview* plugin is used to set the local visualization of the distribution. The component also supports parameterization, so that it by default shows only the selected namespace.
+
+![](step7.png)
+Figure 9: New view form.
+
+
+![](step8.png)
+Figure 10: New view form settings.
+
+**Step 4:** See the local level visualization above.
+
+## Developer perspective
+
+You can follow the original instructions to set up the system. Current instructions are step-by-step instructions to set up the system locally using Docker.
+
+We updated the `docker-compose.dev.yml` where ckan and datapusher services are updated. Additionally we added Fuseki as a service to store semantic data. Fuseki will be available at localhost:3030 with default credentials admin/pz. Prior to running you must create .env file in the root folder, copying contents from the .env.example file.
+
+Datapusher is a custom-built image, defined in the datapusher folder. Apart from the official implementation, we created a new Dockerfile (*Dockerfile.fri-mdp-git*) that clones and builds the semantic data pusher from the repository [https://github.com/FRI-MDP/ckan-semantic-datapusher](https://github.com/FRI-MDP/ckan-semantic-datapusher).
+
+To set up the system, do the following:
+
+- (a) Build Docker images: `docker compose -f docker-compose.dev.yml build`
+- (b) Start containers: `docker compose -f docker-compose.dev.yml up --force-recreate`. When starting for the first time, the database might not be able to initialize in time - just start containers multiple times.
+- (c) The development system is available at [http://localhost:5000](http://localhost:5000) with default credentials ckan_admin/test1234. You can now follow the User part to add resources to the CKAN.
+
+Working specifically with the (Semantic) DataPusher:
+
+- To resubmit jobs, run: `docker exec -i ckan /usr/bin/ckan -c /srv/app/ckan.ini datapusher resubmit`
+- To build image directly, run: `docker build -f datapusher/Dockerfile.fri-mdp-git -t semantic-datapusher .`
+- To force building image from dev compose, run: `docker compose -f docker-compose.dev.yml build datapusher --no-cache`
+
+Hints for developers:
+
+- Remove containers after .env changes.
+- Login to the ckan container to check on things: `docker exec -it ckan /bin/bash`
+- Remove all docker compose objects to clean the system: `docker-compose -f docker-compose.dev.yml down --rmi all -v --remove-orphans`
+
+# Docker Compose setup for CKAN (original)
 
 
 * [Overview](#overview)
