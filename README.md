@@ -22,52 +22,52 @@ The semantic DataPusher and Data map visualization enables two separate views - 
 
 On a global level a data map visualization in shown in a CKAN landing page. Here, user can see all the resources, metadata of fields and connections between them.
 
-![](global.png)
+![](images/global.png)
 Figure 1: Global level - CKAN landing page.
 
 ### Local level
 
 Local level visualization is used to visualize specific distribution schema and data.
 
-![](local.png)
+![](images/local.png)
 Figure 2: Local level - viewing resource of a specific distribution.
 
 ### Adding a new dataset
 
 **Step 1**: Adding a new dataset.
 
-![](step1.png)
+![](images/step1.png)
 Figure 3: Adding a new dataset form.
 
 
-![](step2.png)
+![](images/step2.png)
 Figure 4: Setting all the relevant data (can be defined differently for each CKAN instance).
 
 
-![](step3.png)
+![](images/step3.png)
 Figure 5: Adding two additional parameters for the Semantic DataPusher (can also be integrated into the form).
 
 **Step 2**: Adding a new distribution.
 
-![](step4.png)
+![](images/step4.png)
 Figure 6: Uploading a distribution file and setting general metadata.
 
 
-![](step5.png)
+![](images/step5.png)
 Figure 7: Distribution uploaded.
 
 After a distribution is changed, DataPusher is automatically run. Semantic DataPusher adds some additional logs where it can be checked whether semantic triples were created and stored into Fuseki.
 
-![](step6.png)
+![](images/step6.png)
 Figure 8: DataPusher running log.
 
 **Step 3**: Creating a new view. Semantic data map is a standalone client component. Therefore *webview* plugin is used to set the local visualization of the distribution. The component also supports parameterization, so that it by default shows only the selected namespace.
 
-![](step7.png)
+![](images/step7.png)
 Figure 9: New view form.
 
 
-![](step8.png)
+![](images/step8.png)
 Figure 10: New view form settings.
 
 **Step 4:** See the local level visualization above.
